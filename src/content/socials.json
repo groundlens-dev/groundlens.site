@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "icon": { "type": "simple-icons", "name": "github" },
+    "text": "GitHub",
+    "link": "https://github.com/groundlens-dev"
+  },
+  {
+    "id": 2,
+    "icon": { "type": "simple-icons", "name": "linkedin" },
+    "text": "LinkedIn",
+    "link": "https://linkedin.com/in/javiermarin"
+  },
+  {
+    "id": 3,
+    "icon": { "type": "simple-icons", "name": "arxiv" },
+    "text": "arXiv",
+    "link": "https://arxiv.org/search/cs?searchtype=author&query=Mar%C3%ADn,+J"
+  }
+]

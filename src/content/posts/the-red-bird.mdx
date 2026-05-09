@@ -1,0 +1,37 @@
+---
+title: "The red bird that satisfies all constraints"
+createdAt: "2025-12-15"
+description: "An LLM says a cardinal is red. It's correct. But it never checked — it predicted. That distinction is the entire problem."
+tags: ["research", "hallucination-detection", "geometric-methods"]
+image: "../../assets/posts/red-bird.png"
+---
+
+Ask a language model: "What color is a cardinal?"
+
+It will tell you red. It's correct. But here's the thing — it didn't look it up. It didn't check a database. It didn't verify against a source. It predicted the most probable next tokens given the pattern "cardinal" + "color."
+
+It happens to be right. This time.
+
+The same mechanism that produces "red" for cardinals produces confident, fluent, well-structured answers for questions where the probable answer and the correct answer diverge. The model doesn't know the difference. It can't. Probability and truth are different things, and the model only has access to one of them.
+
+## The geometry of this
+
+When you embed a question and its response in the same vector space, their geometric relationship tells you something. A response that engages source material — that actually grounds itself in evidence — has a measurable signature. It moves toward the context. It occupies a specific region relative to the query.
+
+A response that just predicts plausibly? It stays close to the query. It orbits the question without traveling to the evidence.
+
+This difference is measurable. Not by reading the text. Not by asking another model. By geometry.
+
+## Why this matters
+
+The problem isn't that LLMs get things wrong. The problem is that they get things wrong in exactly the same way they get things right. Same confidence. Same fluency. Same structure.
+
+You can't distinguish grounded responses from confabulations by reading them. You need a measurement that operates on a different level — not on what the words say, but on where the response sits in relation to its sources.
+
+That's what geometric grounding detection does. It doesn't know if the cardinal is red. It measures whether the model did the work of checking.
+
+Verification triage, not truth detection. The response either earned the right to be trusted, or it didn't.
+
+---
+
+*This concept is formalized in the [Semantic Grounding Index](https://arxiv.org/abs/2512.13771) (arXiv:2512.13771)*

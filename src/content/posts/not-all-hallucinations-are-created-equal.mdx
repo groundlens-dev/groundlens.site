@@ -1,0 +1,33 @@
+---
+title: "Not all hallucinations are created equal"
+createdAt: "2026-02-10"
+description: "Three types of hallucination. Two are detectable by geometry. One is provably invisible to any embedding-based method. A taxonomy that tells you where detection works and where it doesn't."
+tags: ["research", "taxonomy", "DGI", "hallucination-detection"]
+image: "../../assets/posts/hallucination-taxonomy.png"
+---
+
+The word "hallucination" is doing too much work.
+
+When an LLM invents a citation that doesn't exist, that's a hallucination. When it attributes a real quote to the wrong person, that's a hallucination. When it generates fluent nonsense about a topic it has no training data for, that's a hallucination.
+
+These are not the same failure mode. They have different geometric signatures, different detection profiles, and different implications for what you can do about them. Treating them as one category makes the detection problem harder than it needs to be.
+
+## Three types
+
+**Type I: Topic drift.** The response leaves the semantic neighborhood of the question entirely. In embedding space, this shows up as a large angular displacement from the query-context region. Detectable. Easily.
+
+**Type II: Entity fabrication.** The response stays in the right topic but invents specific claims — fake institutions, fictional mechanisms, non-existent papers. The displacement vector points in a direction that doesn't align with any grounded pattern. Detectable, with domain calibration.
+
+**Type III: Subtle factual error within the correct frame.** The response discusses the right topic, uses the right terminology, cites real institutions — but gets a specific fact wrong. In embedding space, this is indistinguishable from a correct response.
+
+Type III is the confabulation boundary. No embedding-based method can detect it. This isn't a limitation of current methods — it's a mathematical property of how embeddings encode information.
+
+## What this means in practice
+
+Types I and II are geometrically detectable. With domain-specific calibration, DGI achieves AUROC 0.90–0.99 on these types. Type III requires external fact verification — knowledge graphs, database lookups, human review.
+
+The honest answer is: geometric methods solve two-thirds of the problem. The remaining third requires different tools. We report this because pretending otherwise would be the kind of thing we're trying to detect.
+
+---
+
+*This taxonomy is formalized in [A Geometric Taxonomy of Hallucinations](https://arxiv.org/abs/2602.13224) (arXiv:2602.13224)*

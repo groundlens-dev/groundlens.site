@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Semantic Grounding Index (SGI)",
+    "company": "arXiv:2512.13771",
+    "duration": "December 2025",
+    "description": "Ratio-based grounding verification for RAG systems. Measures whether a response engages its source material via angular geometry on the unit hypersphere."
+  },
+  {
+    "id": 2,
+    "title": "A Geometric Taxonomy of Hallucinations",
+    "company": "arXiv:2602.13224",
+    "duration": "February 2026",
+    "description": "Three-type hallucination classification via directional grounding. Von Mises-Fisher distributions on displacement vectors. Domain-specific calibration achieves AUROC 0.76-0.99."
+  },
+  {
+    "id": 3,
+    "title": "Rotational Dynamics of Factual Constraint Processing",
+    "company": "arXiv:2603.13259",
+    "duration": "March 2026",
+    "description": "Mechanistic interpretability: transformers reject wrong answers via rotation, not rescaling. Phase transition at 1.6B parameters."
+  }
+]

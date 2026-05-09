@@ -1,0 +1,37 @@
+---
+title: "Transformers reject wrong answers by rotating them"
+createdAt: "2026-03-05"
+description: "When a transformer processes a factually wrong completion, it doesn't just scale down the probability. It rotates the representation into a rejection subspace. This mechanism has a phase transition."
+tags: ["research", "mechanistic-interpretability", "transformers"]
+image: "../../assets/posts/rotational-dynamics.png"
+---
+
+There's a specific thing that happens inside a transformer when it encounters a factual claim that contradicts its training distribution.
+
+The conventional assumption is attenuation — the model reduces the probability of wrong tokens. Scales them down. The representation gets quieter.
+
+That's not what happens.
+
+## Rotation, not rescaling
+
+When we track the intermediate representations through transformer layers, factually incorrect completions undergo a rotation in activation space. Not a scaling. A rotation.
+
+The model doesn't make wrong answers quieter. It moves them somewhere else. The representation rotates into a subspace that downstream layers interpret as "reject this."
+
+This is geometrically distinct from what happens to correct completions. Correct completions undergo incremental refinement — small adjustments that sharpen the representation without fundamentally changing its direction. Wrong completions get rotated.
+
+## The phase transition
+
+This rotational rejection mechanism doesn't exist in all models. It emerges at scale.
+
+Below approximately 1.6 billion parameters, models attenuate wrong answers without clean geometric structure. Above 1.6B, the rotational pattern appears. It's not gradual — it's a phase transition.
+
+This suggests that factual constraint processing is an emergent capability — something that appears when the model reaches sufficient capacity to dedicate geometric structure to the task.
+
+## What this means
+
+The model knows more than it says. The geometry tells you what it knows.
+
+---
+
+*This work is detailed in [Rotational Dynamics of Factual Constraint Processing](https://arxiv.org/abs/2603.13259) (arXiv:2603.13259)*

@@ -1,0 +1,37 @@
+---
+title: "Understanding semantic laziness in LLM responses"
+createdAt: "2026-01-05"
+description: "Why LLMs take shortcuts and how geometric analysis reveals these patterns before they become production incidents."
+tags: ["research", "semantic-laziness", "SGI"]
+image: "../../assets/posts/semantic-laziness.png"
+---
+
+There's a particular way language models fail that doesn't look like failure at all.
+
+The response is fluent. Grammatically perfect. Confident. It sounds like it knows what it's talking about. It uses the right vocabulary, the appropriate tone, the expected structure.
+
+But somewhere between the question and the answer, something didn't happen. The model didn't do the work.
+
+Here's the setup: you have a RAG system. User asks a question. Your system retrieves relevant documents. The model gets the question and the evidence. Everything it needs to answer correctly is right there in the context window.
+
+And yet the answer is wrong. Not because the retrieval failed. Not because the documents were bad. The evidence was there. The model just didn't use it.
+
+We call this semantic laziness.
+
+## Geometry as measurement
+
+A grounded response has a specific relationship to its source material. A lazy response has a different relationship — it stays closer to the question, orbiting the query without traveling to the evidence.
+
+This relationship is measurable. Not by asking another model. By geometry.
+
+Grounded responses move toward their sources. Lazy responses don't. That difference leaves a signature you can detect.
+
+## Triage, not truth
+
+Flag the lazy responses. Let the grounded ones through. Review the uncertain cases.
+
+Not perfect. But better than hoping.
+
+---
+
+*This concept is formalized in the [Semantic Grounding Index](https://arxiv.org/abs/2512.13771) (arXiv:2512.13771)*

@@ -1,0 +1,46 @@
+---
+title: "groundlens"
+description: "Geometric LLM hallucination detection. No second LLM. Deterministic. Auditable. Python library with CLI, provider connectors, and framework integrations."
+date: "2025-12-15"
+image: "../../assets/projects/groundlens-library.png"
+link: "https://github.com/groundlens-dev/groundlens"
+info:
+  - text: "Python 3.10-3.13"
+    icon: { type: "simple-icons", name: "python" }
+  - text: "MIT License"
+    icon: { type: "lucide", name: "scale" }
+  - text: "GitHub"
+    icon: { type: "simple-icons", name: "github" }
+    link: "https://github.com/groundlens-dev/groundlens"
+  - text: "Documentation"
+    icon: { type: "lucide", name: "book-open" }
+    link: "https://docs.groundlens.dev"
+---
+
+**groundlens** is a Python library for detecting LLM hallucinations using embedding geometry.
+
+Two methods, zero LLM dependencies:
+
+- **SGI** (Semantic Grounding Index) — measures whether a response engages its source material. For RAG systems with context.
+- **DGI** (Directional Grounding Index) — measures whether a response's displacement in embedding space aligns with grounded patterns. Context-free.
+
+```bash
+pip install groundlens
+```
+
+```python
+from groundlens import compute_sgi
+
+result = compute_sgi(
+    question="What is the capital of France?",
+    context="France is in Western Europe. Its capital is Paris.",
+    response="The capital of France is Paris.",
+)
+# result.flagged → False
+```
+
+Domain-specific calibration achieves AUROC 0.90-0.99. Generic calibration: AUROC ~0.76.
+
+---
+
+[GitHub repository](https://github.com/groundlens-dev/groundlens) · [Documentation](https://docs.groundlens.dev) · [PyPI](https://pypi.org/project/groundlens/)

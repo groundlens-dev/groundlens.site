@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "icon": { "type": "lucide", "name": "scan-search" },
+    "text": "Geometric LLM hallucination detection"
+  },
+  {
+    "id": 2,
+    "icon": { "type": "lucide", "name": "shield-check" },
+    "text": "Deterministic. Auditable. No second LLM."
+  },
+  {
+    "id": 3,
+    "icon": { "type": "simple-icons", "name": "python" },
+    "text": "Open-source Python library (MIT)"
+  }
+]

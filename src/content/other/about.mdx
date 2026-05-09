@@ -1,0 +1,31 @@
+---
+title: "About"
+---
+
+**groundlens** is a research project by [Javier Marin](https://www.linkedin.com/in/javiermarin/) focused on geometric methods for LLM grounding verification.
+
+The core question: can you determine whether an LLM response is grounded in evidence without using another LLM to judge it?
+
+The answer is yes, within measurable boundaries. Embedding geometry encodes enough structure to detect two of three hallucination types. The third — factual errors within the correct conceptual frame — is provably undetectable by any embedding-based method, and we report this honestly.
+
+## Research
+
+Three papers form the foundation:
+
+1. **Semantic Grounding Index** (arXiv:2512.13771) — ratio-based grounding verification for RAG systems.
+
+2. **A Geometric Taxonomy of Hallucinations** (arXiv:2602.13224) — three-type hallucination classification. The confabulation benchmark.
+
+3. **Rotational Dynamics of Factual Constraint Processing** (arXiv:2603.13259) — transformers reject wrong answers via rotation, not rescaling. Phase transition at 1.6B parameters.
+
+## Philosophy
+
+groundlens is verification triage, not truth detection. It tells you which responses earned the right to be trusted and which need human review.
+
+The methods are deterministic. The same input produces the same score every time. Auditable by design.
+
+## Open source
+
+The [groundlens library](https://github.com/groundlens-dev/groundlens) is MIT licensed. The [hallucination benchmark](https://github.com/groundlens-dev/hallucination-benchmark) is CC BY 4.0.
+
+Contact: [javier@jmarin.info](mailto:javier@jmarin.info)
