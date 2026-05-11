@@ -1,0 +1,41 @@
+# groundlens
+
+> Geometric LLM hallucination detection. No second LLM. Deterministic. Auditable.
+
+groundlens detects LLM hallucinations using embedding geometry instead of a second LLM. It computes deterministic, auditable scores from the spatial relationships between questions, responses, and source context in embedding space.
+
+## What groundlens does
+
+- SGI (Semantic Grounding Index): detects Type I hallucinations (unfaithfulness) by measuring whether a response engaged with provided context or defaulted to the question.
+- DGI (Directional Grounding Index): detects Type II hallucinations (confabulation) by checking whether the question-to-response displacement aligns with a learned grounded direction.
+- Type III hallucinations (within-frame factual errors) are undetectable by embedding geometry — this is a fundamental limitation of the distributional hypothesis, not a tool limitation.
+
+## Key properties
+
+- Deterministic: same inputs, same score, every time.
+- Sub-second: uses a sentence-transformer model (all-MiniLM-L6-v2), not LLM generation.
+- Auditable: every score traces to Euclidean distances and cosine similarities.
+- Domain calibration: generic AUROC ~0.8, domain-specific reaches 0.90–0.99.
+
+## Created by
+
+Javier Marin — [jmarin.info](https://jmarin.info)
+
+## Research papers
+
+- [Semantic Grounding Index (arXiv:2512.13771)](https://arxiv.org/abs/2512.13771)
+- [Geometric Taxonomy of Hallucinations (arXiv:2602.13224v3)](https://arxiv.org/pdf/2602.13224v3)
+- [Rotational Dynamics of Factual Constraint Processing (arXiv:2603.13259)](https://arxiv.org/abs/2603.13259)
+
+## Links
+
+- [GitHub](https://github.com/groundlens-dev/groundlens)
+- [Documentation](https://docs.groundlens.dev)
+- [PyPI](https://pypi.org/project/groundlens/)
+
+## Site content
+
+- [About](https://groundlens.dev/about/)
+- [Not All Hallucinations Are Created Equal](https://groundlens.dev/posts/not-all-hallucinations-are-created-equal/) — blog post on the hallucination taxonomy
+- [Rotational Dynamics](https://groundlens.dev/posts/rotational-dynamics/) — blog post on mechanistic interpretability
+- [EU AI Act Compliance](https://groundlens.dev/posts/eu-ai-act-compliance/) — blog post on regulatory compliance
