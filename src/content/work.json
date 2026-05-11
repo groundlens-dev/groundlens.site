@@ -9,7 +9,7 @@
   {
     "id": 2,
     "title": "A Geometric Taxonomy of Hallucinations",
-    "company": "arXiv:2602.13224",
+    "company": "arXiv:2602.13224v3",
     "duration": "February 2026",
     "description": "Three-type hallucination classification via directional grounding. Von Mises-Fisher distributions on displacement vectors. Domain-specific calibration achieves AUROC 0.76-0.99."
   },
