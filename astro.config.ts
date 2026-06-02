@@ -20,7 +20,7 @@ const config = defineConfig({
 			openGraph: {
 				home: {
 					title: 'groundlens',
-					description: 'Geometric LLM hallucination detection. No second LLM. Deterministic. Auditable.',
+					description: 'Triage for LLM outputs. Geometric detection. No second LLM. Deterministic. Auditable.',
 				},
 				blog: {
 					title: 'Blog',
