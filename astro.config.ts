@@ -27,7 +27,8 @@ const config = defineConfig({
 					description: 'News and guides for groundlens.',
 				},
 				projects: {
-					title: 'Projects',
+				    title: 'Projects',
+				    description: 'Open-source libraries for triaging LLM outputs and characterizing hallucinations geometrically.',
 				},
 			},
 		}),
