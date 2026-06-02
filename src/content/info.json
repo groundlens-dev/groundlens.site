@@ -2,12 +2,12 @@
   {
     "id": 1,
     "icon": { "type": "lucide", "name": "scan-search" },
-    "text": "Geometric LLM hallucination detection"
+    "text": "Triage for LLM outputs in regulated industries"
   },
   {
     "id": 2,
     "icon": { "type": "lucide", "name": "shield-check" },
-    "text": "Deterministic. Auditable. No second LLM."
+    "text": "Geometric. Deterministic. Auditable. No second LLM."
   },
   {
     "id": 3,
