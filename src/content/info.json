@@ -7,11 +7,11 @@
   {
     "id": 2,
     "icon": { "type": "lucide", "name": "shield-check" },
-    "text": "Geometric. Deterministic. Auditable. No second LLM."
+    "text": "Stage-one filter that flags disengagement in LLM, deterministically and for free"
   },
   {
     "id": 3,
     "icon": { "type": "simple-icons", "name": "python" },
-    "text": "Open-source Python library (MIT)"
+    "text": "Open-source Python library (APACHE-2.0)"
   }
 ]
