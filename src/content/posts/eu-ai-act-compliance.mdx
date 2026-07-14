@@ -16,12 +16,22 @@ Article 15 doesn't ask whether your AI is intelligent. It asks whether you can p
 
 This is not optional. Penalties reach 35 million euros or 7% of global revenue.
 
-## The geometric advantage
+## What determinism actually buys you
 
-Deterministic detection methods like SGI and DGI produce auditable, reproducible scores. No stochastic variation between runs. No second LLM introducing its own failure modes into the evaluation chain.
+Article 15 requires provable accuracy. A score that changes every time you run it is not evidence. SGI and DGI produce the same output for the same input, every time, and every score traces back to distances in an embedding space you can inspect. That is a real compliance property, and it is the one geometry can give you.
 
-This matters for compliance because Article 15 requires provable accuracy. A score that changes every time you run it is not evidence. Geometric methods produce the same output for the same input, every time.
+## What it does not buy you
+
+Coverage. A confabulation that stays in register, right topic, right terminology, real institutions, one wrong figure, is close to invisible to any embedding-similarity method. Measured across register bins, the whole class declines toward chance as the error moves in register, and once you control for who wrote the text it tops out in the high 0.6s AUROC. Entailment models do not decline there.
+
+So do not present a geometric score to an examiner as Article 15 accuracy evidence on its own. It is not, and a competent reviewer will find the hole.
+
+## The compliant design is two stages
+
+Groundlens is the deterministic, reproducible, free first pass, with a blind spot you can write down. An entailment check or a model judge resolves what it escalates. The audit artifact is not the score: it is the documented account of which outputs were escalated and why.
+
+That is also the Article 9 answer. A method that publishes its own failure region, as a number rather than a caveat, is worth more to a risk file than one that reports a figure it cannot defend. We know, because we published such a figure and then withdrew it.
 
 ---
 
-*groundlens provides deterministic, auditable grounding scores for EU AI Act Article 15 compliance. See the [documentation](https://docs.groundlens.dev/guides/eu-ai-act/).*
+*groundlens is a deterministic first-stage grounding check. It measures whether an answer was drawn from its source, not whether the answer is true. See the [documentation](https://docs.groundlens.dev/guides/eu-ai-act/).*

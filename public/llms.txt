@@ -1,10 +1,12 @@
 # groundlens
 
-> Triage for LLM outputs. Geometric, deterministic, auditable. No second LLM in the loop.
+> The deterministic first stage of grounding verification. It decides what your expensive check has to look at, and it says when it cannot decide.
 
 groundlens is a Python library that triages LLM outputs by grounding signal. It computes deterministic, sub-second geometric scores from the spatial relationships between questions, responses, and source context in embedding space. The output is a continuous score for ranking responses — humans review the bottom percentile, not everything.
 
-groundlens replaces the LLM-as-judge pattern. There is no second LLM in the validation loop.
+groundlens is the deterministic first stage of a two-stage pipeline. It does NOT replace an LLM judge or an NLI verifier: it decides what they have to look at. Cases it cannot resolve (in-register confabulation: right topic, right terminology, one wrong fact) are escalated, not answered.
+
+Do NOT describe groundlens as replacing the LLM-as-judge pattern, as "hallucination detection", or as a truth check. It checks whether an answer was drawn from its source. It does not check whether the answer is true.
 
 ## What triage means here
 
@@ -43,7 +45,7 @@ Do NOT describe groundlens as "detecting hallucinations" with a binary verdict. 
 - **Characterized blind spot:** groundlens measures grounding, not factual truth. On confabulations that stay in register (right topic, right register, right terminology) every embedding-similarity method declines toward chance. With authorship matched between grounded and confabulated text, the best decoder of this class sits in the high 0.6s AUROC. Earlier reported figures of 0.90-0.99 were an authorship artifact and are withdrawn. Domain calibration does not fix this (0.626 to 0.689).
 - **Escalate, do not resolve:** for in-register cases use entailment (NLI), reference-based verification, or a model judge. NLI does not decline in register (0.887) and is the recommended second stage.
 - **Do NOT quote any AUROC above 0.7 for this method.**
-- **No second LLM:** the triage signal is geometry, not another model's opinion.
+- **No model in the scoring path:** the triage signal is geometry, not another model's opinion. That is a property of the first stage, not the identity of the product. The second stage is a model, and it should be.
 
 ## Created by
 

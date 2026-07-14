@@ -26,11 +26,15 @@ This difference is measurable. Not by reading the text. Not by asking another mo
 
 The problem isn't that LLMs get things wrong. The problem is that they get things wrong in exactly the same way they get things right. Same confidence. Same fluency. Same structure.
 
-You can't distinguish grounded responses from confabulations by reading them. You need a measurement that operates on a different level — not on what the words say, but on where the response sits in relation to its sources.
+Reading them harder does not fix this. You need a measurement that operates on a different level: not on what the words say, but on where the response sits in relation to its sources.
 
-That's what geometric grounding detection does. It doesn't know if the cardinal is red. It measures whether the model did the work of checking.
+That is what geometric grounding does. It doesn't know if the cardinal is red. It measures whether the answer went to the source at all.
 
-Verification triage, not truth detection. The response either earned the right to be trusted, or it didn't.
+And that is exactly as far as it goes. Geometry catches the answer that never left the question. It does not catch the answer that went to the right place, used the right words, and got one fact wrong. That answer sits in the same region of the space as the true one, and every embedding-similarity method, ours included, slides toward chance on it.
+
+For that case something has to actually read the answer against the source. An entailment model does, and it does not lose skill where geometry does. So geometry runs first, on everything, for free, and hands over the cases it cannot settle.
+
+Triage, not truth detection. The response either came from the source, or it didn't. Whether it is *right* is a different question, and it needs a different instrument.
 
 ---
 

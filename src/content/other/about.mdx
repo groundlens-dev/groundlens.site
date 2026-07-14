@@ -6,7 +6,11 @@ title: "About"
 
 The core question: can you rank LLM responses by grounding signal without asking another LLM to judge them?
 
-The answer is yes, within measurable boundaries. Embedding geometry encodes enough structure to rank two of three hallucination types. The third — factual errors within the correct conceptual frame — is provably undetectable by any embedding-based method, and we report this honestly.
+The answer is yes, within a boundary we can now draw exactly.
+
+Embedding geometry separates a response that disengaged from its source from one that did the work. It does not separate a confabulation that stays *in register* from a correct answer: as the wrong answer adopts the right topic, the right terminology and the right structure, every embedding-similarity method declines toward chance. Controlling for who wrote the text, the ceiling of the whole class is in the high 0.6s AUROC. That is not a weak estimator. It is the ceiling.
+
+Entailment models do not decline there. They are the best thing available in-register. So Groundlens is a first stage, and the boundary is written into the product rather than around it.
 
 ## Research
 

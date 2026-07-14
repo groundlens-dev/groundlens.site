@@ -30,7 +30,7 @@ const SPACE_URL = "https://groundlens-groundlens-mcp.hf.space";
 				width={120}
 				height={120}
 				src={ProfilePicture}
-				alt="groundlens — geometric LLM hallucination detection"
+				alt="groundlens — deterministic first-stage triage for LLM outputs"
 				loading="eager"
 			/>
 			<h2>{name}</h2>
@@ -75,11 +75,12 @@ const SPACE_URL = "https://groundlens-groundlens-mcp.hf.space";
 	</div>
 	<div class="layout-grid-right" slot="right">
 		<Card>
-			<h1 class="hero-title">Check your LLM without a second LLM.</h1>
+			<h1 class="hero-title">The cheap check that runs before the expensive one.</h1>
 			<p class="hero-sub">
 				Groundlens ranks answers by how grounded they are, read straight from the
-				geometry of the embeddings. Deterministic. Sub second. Auditable. And it
-				tells you the few cases that still need your expensive second stage.
+				geometry of the embeddings. Deterministic. Sub second. Auditable. It runs on
+				everything for free, and it hands your expensive verifier the few cases it
+				cannot settle itself.
 			</p>
 			<div class="cta-row">
 				<a href="#demo" class="btn btn-primary">Run the demo</a>
@@ -118,8 +119,9 @@ const SPACE_URL = "https://groundlens-groundlens-mcp.hf.space";
 			<p class="prose">
 				Grounding is displacement in embedding space. With a source to check
 				against, <strong>SGI</strong> measures it. Without one, <strong>DGI</strong>
-				reads it from the answer alone. The same geometry, read twice. No judge
-				model in the loop, ever.
+				reads it from the answer alone. The same geometry, read twice. No judge model
+				in the first pass, which is what makes it free. The cases geometry cannot
+				settle go to one.
 			</p>
 		</Card>
 
@@ -146,10 +148,12 @@ const SPACE_URL = "https://groundlens-groundlens-mcp.hf.space";
 			</div>
 			<p class="prose">
 				Groundlens is the cheap, deterministic first pass. It catches semantic
-				disengagement in one shot, no judge model, and escalates only what is left,
-				a factual error inside the right conceptual frame, to your expensive second
-				stage. You spend the slow, costly check on the few cases that need it, not on
-				everything.
+				disengagement in one shot, with no model in the scoring path, and escalates
+				what is left: a factual error stated inside the right conceptual frame. That
+				case is not a tuning problem. Every embedding-similarity method, this one
+				included, declines toward chance as a wrong answer adopts the register of a
+				right one. Entailment does not, which is why we point you at it. You spend the
+				slow, costly check on the few cases that need it, not on everything.
 			</p>
 		</Card>
 
