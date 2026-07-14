@@ -39,7 +39,7 @@ result = compute_sgi(
 # result.flagged → False
 ```
 
-Domain-specific calibration achieves AUROC 0.90-0.99. Generic calibration: AUROC ~0.76.
+Reported skill, with controls. On confabulations that stay in register, every embedding-similarity method, this one included, declines toward chance: classic encoders reach 0.62 to 0.68, raw cosine 0.595. Under an authorship-matched control, decoders that appeared to score 0.93+ fall to 0.66 to 0.68. The high 0.6s is the ceiling of the class, not a groundlens shortfall. Domain calibration sharpens the easy end and leaves the blind spot intact (0.626 to 0.689). Use it to triage, then escalate what it cannot settle to an entailment check.
 
 ---
 

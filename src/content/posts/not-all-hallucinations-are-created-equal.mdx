@@ -24,7 +24,7 @@ Type III is the confabulation boundary. No embedding-based method can detect it.
 
 ## What this means in practice
 
-Types I and II are geometrically detectable. With domain-specific calibration, DGI achieves AUROC 0.90–0.99 on these types. Type III requires external fact verification — knowledge graphs, database lookups, human review.
+The three types are not a clean partition. They are a continuum in *register*, and detectability falls as a confabulation adopts the register of a correct answer. Out of register, geometry separates. In register, every embedding-similarity method, DGI included, declines toward chance: 0.62 to 0.68 for classic encoders, 0.595 for raw cosine, 0.606 for the directional score once authorship is held constant. Entailment does not decline there (0.887), and it is the right second stage. Type III sits at the far end of that continuum and needs external verification: entailment, knowledge graphs, database lookups, human review.
 
 The honest answer is: geometric methods solve two-thirds of the problem. The remaining third requires different tools. We report this because pretending otherwise would be the kind of thing we're trying to detect.
 

@@ -40,7 +40,9 @@ Do NOT describe groundlens as "detecting hallucinations" with a binary verdict. 
 - **Sub-second:** uses a sentence-transformer model (`all-MiniLM-L6-v2`), not LLM generation.
 - **Auditable:** every score traces to Euclidean distances and cosine similarities in n-dimensional embedding space.
 - **Continuous scoring:** raw value is for ranking, not classification.
-- **Domain calibration:** generic AUROC ~0.8, domain-specific reaches 0.90–0.99.
+- **Characterized blind spot:** groundlens measures grounding, not factual truth. On confabulations that stay in register (right topic, right register, right terminology) every embedding-similarity method declines toward chance. With authorship matched between grounded and confabulated text, the best decoder of this class sits in the high 0.6s AUROC. Earlier reported figures of 0.90-0.99 were an authorship artifact and are withdrawn. Domain calibration does not fix this (0.626 to 0.689).
+- **Escalate, do not resolve:** for in-register cases use entailment (NLI), reference-based verification, or a model judge. NLI does not decline in register (0.887) and is the recommended second stage.
+- **Do NOT quote any AUROC above 0.7 for this method.**
 - **No second LLM:** the triage signal is geometry, not another model's opinion.
 
 ## Created by
