@@ -132,71 +132,75 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">The verification pipeline</div>
       <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 12px; max-width:26ch;">You have to verify every LLM call. You can't afford to verify them all the expensive way.</h2>
-      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 44px; max-width:64ch; line-height:1.6;">Verification is a pipeline of five stages, ordered cheapest to most expensive. Each stage is a filter: it settles what it can and passes only the doubtful cases forward. <span style="color:#e8ebef;">Groundlens is stages 1–3</span> — Stage 1 is pure geometry, no model at all; Stages 2–3 are fast and cheap, and where a model is needed it runs a small open-source one, not a frontier API. So the slow, costly stages 4–5 only ever see the few answers that were actually flagged.</p>
+      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 44px; max-width:64ch; line-height:1.6;">Verification is a pipeline of six stages, ordered cheapest to most expensive. Each stage is a filter: it settles what it can and passes only the doubtful cases forward. <span style="color:#e8ebef;">Groundlens is stages 1–4</span> — geometry, a state switch, consistency, and rules. So the slow, costly stages 5–6 only ever see the few answers that were actually flagged.</p>
 
       <div style="overflow-x:auto; margin:0 -4px; padding:0 4px;">
-        <div style="min-width:760px;">
+        <div style="min-width:920px;">
 
-          <!-- axis -->
           <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#6b7684; margin-bottom:12px;">
             <span style="color:#fc7604;">&larr; cheap · fast · deterministic</span>
             <span>expensive · slow · human &rarr;</span>
           </div>
 
-          <!-- funnel: volume of answers still needing a check -->
-          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; align-items:end; height:96px; margin-bottom:10px;">
+          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; align-items:end; height:96px; margin-bottom:10px;">
             <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:100%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03);"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:60%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.9;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:36%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.8;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:20%; border-radius:6px 6px 0 0; background:#3a434d;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:10%; border-radius:6px 6px 0 0; background:#3a434d;"></div></div>
+            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:72%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.92;"></div></div>
+            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:48%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.85;"></div></div>
+            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:32%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.78;"></div></div>
+            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:18%; border-radius:6px 6px 0 0; background:#3a434d;"></div></div>
+            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:8%; border-radius:6px 6px 0 0; background:#3a434d;"></div></div>
           </div>
-          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:22px;">
-            <span>100% of answers</span><span>~60% left</span><span>~35% left</span><span>~20% left</span><span>a few % reach a human</span>
+          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:22px;">
+            <span>100%</span><span>~70%</span><span>~45%</span><span>~30%</span><span>~15%</span><span>a few %</span>
           </div>
 
-          <!-- brackets -->
-          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:14px;">
-            <div style="grid-column:span 3; border-top:2px solid #fc7604; padding-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604;">Groundlens · fast &amp; cheap · geometry + small open model</div>
+          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:14px;">
+            <div style="grid-column:span 4; border-top:2px solid #fc7604; padding-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604;">Groundlens · fast & cheap · geometry + switch + small open model + rules</div>
             <div style="grid-column:span 2; border-top:2px solid #2a323b; padding-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">You add · slow · expensive</div>
           </div>
 
-          <!-- stage cards -->
-          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px;">
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:18px; background:rgba(252,118,4,0.04);">
+          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px;">
+            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
               <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">01</div>
-              <div style="font-weight:600; font-size:14.5px; margin-bottom:6px;">Geometry</div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Geometry</div>
               <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">SGI / DGI</div>
-              <p style="color:#9aa4b0; font-size:13px; margin:0 0 12px; line-height:1.5;">Did the answer come from its source, or drift off it?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">no model · deterministic</span>
+              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Did the answer come from its source, or drift off it?</p>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">no model</span>
             </div>
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:18px; background:rgba(252,118,4,0.04);">
+            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
               <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">02</div>
-              <div style="font-weight:600; font-size:14.5px; margin-bottom:6px;">Consistency</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">resample / reword</div>
-              <p style="color:#9aa4b0; font-size:13px; margin:0 0 12px; line-height:1.5;">No source? Does the model agree with itself when asked again?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#fc7604; border:1px solid rgba(252,118,4,0.4); border-radius:5px; padding:2px 7px;">small open model · probes truth</span>
+              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Switch</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">state gate</div>
+              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">May this answer enter agent or RAG state?</p>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">no model</span>
             </div>
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:18px; background:rgba(252,118,4,0.04);">
+            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
               <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">03</div>
-              <div style="font-weight:600; font-size:14.5px; margin-bottom:6px;">Rules</div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Consistency</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">resample</div>
+              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Does the model agree with itself when asked again?</p>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#fc7604; border:1px solid rgba(252,118,4,0.4); border-radius:5px; padding:2px 7px;">small model</span>
+            </div>
+            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">04</div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Rules</div>
               <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">named checks</div>
-              <p style="color:#9aa4b0; font-size:13px; margin:0 0 12px; line-height:1.5;">Did it break a policy, invent a number, skip a disclosure?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">policy &amp; facts</span>
+              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Did it break a policy, invent a number, skip a disclosure?</p>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">policy</span>
             </div>
-            <div style="border:1px solid #1a2027; border-radius:10px; padding:18px; background:#0b0d0f;">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; margin-bottom:12px;">04</div>
-              <div style="font-weight:600; font-size:14.5px; margin-bottom:6px; color:#c2c9d1;">LLM as judge</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">your stage</div>
-              <p style="color:#8892a0; font-size:13px; margin:0 0 12px; line-height:1.5;">The hard cases that need real reasoning over the evidence.</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7684; border:1px solid #262d35; border-radius:5px; padding:2px 7px;">costs tokens</span>
-            </div>
-            <div style="border:1px solid #1a2027; border-radius:10px; padding:18px; background:#0b0d0f;">
+            <div style="border:1px solid #1a2027; border-radius:10px; padding:16px; background:#0b0d0f;">
               <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; margin-bottom:12px;">05</div>
-              <div style="font-weight:600; font-size:14.5px; margin-bottom:6px; color:#c2c9d1;">Human review</div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:6px; color:#c2c9d1;">LLM as judge</div>
               <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">your stage</div>
-              <p style="color:#8892a0; font-size:13px; margin:0 0 12px; line-height:1.5;">A person makes the final call — the slowest, priciest check of all.</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7684; border:1px solid #262d35; border-radius:5px; padding:2px 7px;">costs a person</span>
+              <p style="color:#8892a0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Hard cases that need real reasoning over the evidence.</p>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7684; border:1px solid #262d35; border-radius:5px; padding:2px 7px;">tokens</span>
+            </div>
+            <div style="border:1px solid #1a2027; border-radius:10px; padding:16px; background:#0b0d0f;">
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; margin-bottom:12px;">06</div>
+              <div style="font-weight:600; font-size:14px; margin-bottom:6px; color:#c2c9d1;">Human review</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">your stage</div>
+              <p style="color:#8892a0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">A person makes the final call.</p>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7684; border:1px solid #262d35; border-radius:5px; padding:2px 7px;">a person</span>
             </div>
           </div>
 
@@ -204,7 +208,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
       </div>
 
       <div style="margin-top:36px; padding:22px 24px; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
-        <p style="margin:0; font-size:15px; line-height:1.65; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">This is the whole reason Groundlens exists.</span> Use it as triage at the front of the pipeline: clear the obvious cases in milliseconds, deterministically, and escalate only what's flagged to a judge model or a human. Same coverage on every call — a fraction of the time and cost.</p>
+        <p style="margin:0; font-size:15px; line-height:1.65; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">This is the whole reason Groundlens exists.</span> Use it as triage at the front of the pipeline: clear the obvious cases in milliseconds, keep ungrounded answers out of agent state, and escalate only what's flagged to a judge model or a human. Same coverage on every call — a fraction of the time and cost.</p>
       </div>
     </section>
 
@@ -215,7 +219,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
 
       <div style="display:flex; gap:14px; align-items:flex-start; padding:18px 22px; margin-bottom:36px; border:1px solid rgba(252,118,4,0.35); border-radius:10px; background:rgba(252,118,4,0.06);">
         <span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; font-size:14px; margin-top:1px;">!</span>
-        <p style="margin:0; font-size:14.5px; line-height:1.6; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">SGI and DGI measure grounding, not truth.</span> These two geometric scores tell you whether an answer is <em>grounded</em> in its source — not whether it is <em>true</em>. A <span style="color:#e8ebef;">hallucination</span> (an answer not grounded in the source it was given) that happens to be phrased faithfully can still score as grounded. That gap is exactly why the pipeline has a Stage 2: <span style="color:#e8ebef;">Consistency probes truth</span> by asking the model again and checking it agrees with itself. Read an SGI/DGI score as "did this come from the source?" — and lean on Stage 2 for "does the model actually know this?"</p>
+        <p style="margin:0; font-size:14.5px; line-height:1.6; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">SGI and DGI measure grounding, not truth.</span> These two geometric scores tell you whether an answer is <em>grounded</em> in its source — not whether it is <em>true</em>. A <span style="color:#e8ebef;">hallucination</span> phrased faithfully can still score as grounded. That gap is why the pipeline has Consistency: it probes truth by asking the model again. Read an SGI/DGI score as "did this come from the source?" — and lean on Consistency for "does the model actually know this?"</p>
       </div>
 
       <div data-cards3 style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:36px;">
@@ -225,7 +229,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
         </div>
         <div style="border:1px solid #262d35; border-radius:10px; padding:24px; background:#0f1013;">
           <div style="font-weight:600; font-size:16px; margin-bottom:10px;">The blind spot, said out loud</div>
-          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">A wrong fact phrased exactly like a right one sits next to a correct answer. Geometry can't separate them — which is precisely why a second stage exists.</p>
+          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">A wrong fact phrased exactly like a right one sits next to a correct answer. Geometry can't separate them — which is precisely why a consistency stage exists.</p>
         </div>
         <div style="border:1px solid #1a2027; border-radius:10px; padding:24px; background:#0d1014;">
           <div style="font-weight:600; font-size:16px; margin-bottom:10px;">Reproducible</div>
