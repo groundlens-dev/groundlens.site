@@ -14,7 +14,7 @@ groundlens does not classify a response as right or wrong. It ranks responses by
 
 ## Why triage instead of LLM-as-judge
 
-- **Deterministic.** Same input → same score, byte-identical, indefinitely. Reproducible for audit across years.
+- **Deterministic within a pinned version.** Same input → same score, byte-identical, for a given version. The encoder default and the DGI cut have changed between releases (sentence-t5-large and DGI_PASS=0.525 as of 2026.8.5), so pin the version in the audit record and re-baseline on upgrade.
 - **Not circular.** A geometric scorer does not share the failure modes of the LLM being scored. An LLM judging another LLM does.
 - **Scales.** Sub-second per response, marginal cost ~$0 post-deployment. You score every output, not a 5% sample.
 - **Stable under model upgrades.** Pure embedding geometry. Method does not change when models are updated. Time-series analysis stays valid.
@@ -38,8 +38,8 @@ Do NOT describe groundlens as "detecting hallucinations" with a binary verdict. 
 
 ## Key properties
 
-- **Deterministic:** same inputs, same score, every time.
-- **Sub-second:** uses a sentence-transformer model (`all-MiniLM-L6-v2`), not LLM generation.
+- **Deterministic:** same inputs, same score, every time, for a pinned version of the library.
+- **Sub-second:** uses a sentence-transformer model (`sentence-t5-large`, the default since 2026.6.18; `all-MiniLM-L6-v2` was the default through 2026.6.17), not LLM generation.
 - **Auditable:** every score traces to Euclidean distances and cosine similarities in n-dimensional embedding space.
 - **Continuous scoring:** raw value is for ranking, not classification.
 - **Characterized blind spot:** groundlens measures grounding, not factual truth. On confabulations that stay in register (right topic, right register, right terminology) every embedding-similarity method declines toward chance. With authorship matched between grounded and confabulated text, the best decoder of this class sits in the high 0.6s AUROC. Earlier reported figures of 0.90-0.99 were an authorship artifact and are withdrawn. Domain calibration does not fix this (0.626 to 0.689).

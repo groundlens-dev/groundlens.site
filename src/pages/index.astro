@@ -153,6 +153,8 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
           <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:22px;">
             <span>100%</span><span>~70%</span><span>~45%</span><span>~30%</span><span>~15%</span><span>a few %</span>
           </div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">Illustrative funnel shape, not measured pass-through rates &mdash; yours depend on your thresholds and traffic.
+          </div>
 
           <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:14px;">
             <div style="grid-column:span 4; border-top:2px solid #fc7604; padding-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604;">Groundlens · fast & cheap · geometry + switch + small open model + rules</div>
@@ -217,6 +219,31 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
       <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">The proof</div>
       <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 24px; max-width:24ch;">What it catches, what it doesn't, and why you can check both.</h2>
 
+      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 20px; max-width:70ch; line-height:1.6;">Hold the questions fixed and change only how the wrong answer is written. Detection accuracy tracks how close the wrong answer sits to the register of the right one — not how good the detector is.</p>
+
+      <div style="overflow-x:auto; border:1px solid #1a2027; border-radius:10px; background:#0d1014; margin-bottom:16px;">
+        <table style="width:100%; min-width:560px; border-collapse:collapse; font-size:14px;">
+          <thead>
+            <tr style="text-align:left; color:#9aa4b0; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.04em;">
+              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22;">Benchmark</th>
+              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22; text-align:right;">Detection accuracy</th>
+              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22; text-align:right;">Paired similarity cos(g,c)</th>
+            </tr>
+          </thead>
+          <tbody style="color:#c2c9d1;">
+            <tr><td style="padding:13px 20px; border-bottom:1px solid #141a20;">HaluEval (LLM-generated)</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">88&ndash;97%</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">0.10&ndash;0.78</td></tr>
+            <tr><td style="padding:13px 20px; border-bottom:1px solid #141a20;">LLM confabulations (same questions)</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">73&ndash;76%</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">0.86&ndash;0.96</td></tr>
+            <tr style="color:#e8ebef; font-weight:600;"><td style="padding:13px 20px;">Human confabulations (GL-212)</td><td style="padding:13px 20px; text-align:right; font-family:'IBM Plex Mono',monospace;">69&ndash;78%</td><td style="padding:13px 20px; text-align:right; font-family:'IBM Plex Mono',monospace;">0.72&ndash;0.92</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:#6b7684; font-size:12.5px; font-family:'IBM Plex Mono',monospace; margin:0 0 28px; line-height:1.6;">Ranges across four encoders: all-MiniLM-L6-v2, all-mpnet-base-v2, bge-small-en-v1.5, gte-small. Pairwise-detection accuracy = fraction of pairs where cos(q,g) &gt; cos(q,c). The middle row is the control: same questions, machine-written negatives. It is register, not authorship.</p>
+
+      <div style="padding:22px 24px; margin-bottom:36px; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
+        <p style="margin:0 0 12px; font-size:14.5px; line-height:1.65; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">Honest scope.</span> Register alignment predicts detectability: across 15 quintile points the rank correlation between register alignment and AUROC is Spearman &minus;0.90, and a cross-encoder control reaches &minus;1.00 in four of six dataset/direction pairs. DGI reaches AUROC 0.897 on TruthfulQA, 0.712 on GL-212 and 0.617 on RAGTruth &mdash; the spread is the register effect, not three different detectors. With authorship held constant, logistic, MLP and DGI land at 0.660, 0.675 and 0.606.</p>
+        <p style="margin:0; font-size:14.5px; line-height:1.65; color:#9aa4b0;">The bound we prove covers detectors that are a function of a single frozen sentence embedding &mdash; not activations, not log-probs, not multi-sample, not retrieval. Register sufficiency is an assumption, not a theorem, and only partly true: residual surface features keep partial Spearman up to 0.37 after register alignment is controlled. Stronger classifiers keep some signal too &mdash; random forests and XGBoost reach 0.68&ndash;0.88 at high register alignment. The one number here you can reproduce today is the GL-212 row, with <code>scripts/validate.py</code>. The AUROC figures come from the manuscript; the notebooks are not released yet.</p>
+      </div>
+
       <div style="display:flex; gap:14px; align-items:flex-start; padding:18px 22px; margin-bottom:36px; border:1px solid rgba(252,118,4,0.35); border-radius:10px; background:rgba(252,118,4,0.06);">
         <span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; font-size:14px; margin-top:1px;">!</span>
         <p style="margin:0; font-size:14.5px; line-height:1.6; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">SGI and DGI measure grounding, not truth.</span> These two geometric scores tell you whether an answer is <em>grounded</em> in its source — not whether it is <em>true</em>. A <span style="color:#e8ebef;">hallucination</span> phrased faithfully can still score as grounded. That gap is why the pipeline has Consistency: it probes truth by asking the model again. Read an SGI/DGI score as "did this come from the source?" — and lean on Consistency for "does the model actually know this?"</p>
@@ -233,7 +260,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
         </div>
         <div style="border:1px solid #1a2027; border-radius:10px; padding:24px; background:#0d1014;">
           <div style="font-weight:600; font-size:16px; margin-bottom:10px;">Reproducible</div>
-          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">Thresholds and reference direction are calibrated and versioned. The same input gives the same result — today and two years from now.</p>
+          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">Scores are a pure function of the input and the pinned version. Within a pinned version — encoder, thresholds and reference direction — the same input gives the same score, byte for byte, forever. Across versions those constants change: the default encoder moved to <code>sentence-t5-large</code> and the DGI cut to 0.525 in 2026.8.5. Pin the version in your audit trail, and re-baseline when you upgrade.</p>
         </div>
       </div>
 
@@ -306,7 +333,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
       <div style="max-width:56ch;">
         <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#6b7684; margin-bottom:16px;">Who maintains it</div>
-        <p style="font-size:18px; line-height:1.6; color:#e8ebef; margin:0 0 18px; letter-spacing:-0.01em;"><span style="font-weight:600;">Javier Marín</span> created the method and the library. Published in the open, maintained in the open — the three papers above are the method on the record.</p>
+        <p style="font-size:18px; line-height:1.6; color:#e8ebef; margin:0 0 18px; letter-spacing:-0.01em;"><span style="font-weight:600;">Javier Marín</span> created the method and the library. Published in the open, maintained in the open. Five arXiv preprints are the method on the record. Each of the three listed above has been through peer review at COLM, NeurIPS or ACL, three reviewers per paper, and each current version was revised to address every point raised. None is accepted at a venue yet.</p>
         <div style="display:flex; flex-wrap:wrap; gap:18px; font-size:13.5px; align-items:center;">
           <a href="https://github.com/groundlens-dev">GitHub &rarr;</a>
           <a href="https://www.linkedin.com/in/javiermarinvalenzuela/">LinkedIn &rarr;</a>
