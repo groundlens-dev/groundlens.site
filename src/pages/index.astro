@@ -6,9 +6,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Groundlens</title>
-<meta name="description" content="Check whether an LLM answer came from its source. Fast, deterministic, no second LLM.">
+<meta name="description" content="Groundlens checks what an answer tells people they have to do. Obligations, deadlines, amounts and citations, checked against your sources and your rules, offline.">
 <meta property="og:title" content="Groundlens">
-<meta property="og:description" content="Check whether an LLM answer came from its source. Fast, deterministic, no second LLM.">
+<meta property="og:description" content="Groundlens checks what an answer tells people they have to do. Obligations, deadlines, amounts and citations, checked against your sources and your rules, offline.">
 <link rel="icon" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,13 +60,13 @@
           open source · Apache-2.0
         </div>
         <h1 style="font-size:clamp(2rem,4.4vw,3.15rem); line-height:1.08; letter-spacing:-0.025em; font-weight:600; margin:0 0 20px;">
-          Check whether an LLM's answer actually came from its source.
+          Groundlens checks what an answer tells people they have to do.
         </h1>
-        <p style="font-size:19px; color:#c2c9d1; margin:0 0 10px; line-height:1.45; max-width:40ch;">
-          Fast, deterministic, no second LLM.
+        <p style="font-size:19px; color:#c2c9d1; margin:0 0 10px; line-height:1.45; max-width:44ch;">
+          Obligations, deadlines, amounts and citations, compared with your own sources and your own rules.
         </p>
         <p style="font-size:15px; color:#8892a0; margin:0 0 32px; font-family:'IBM Plex Mono',monospace;">
-          For RAG systems and agent loops in regulated industries.
+          Runs offline. No model in the path. Same inputs, same decision.
         </p>
 
         <div style="display:flex; align-items:stretch; gap:0; max-width:440px; border:1px solid #262d35; border-radius:10px; overflow:hidden; background:#0f1318;">
@@ -76,8 +76,8 @@
           <button onclick="glCopyInstall(event)" style="border:0; border-left:1px solid #262d35; background:#fc7604; color:#0a0c0e; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px; padding:0 18px; cursor:pointer; letter-spacing:0.02em;">Copy</button>
         </div>
         <div style="display:flex; align-items:center; gap:22px; margin-top:20px;">
-          <a href="https://huggingface.co/spaces/groundlens/demo" style="font-size:14px; font-weight:500; color:#c2c9d1; display:inline-flex; align-items:center; gap:8px;"><img src="https://www.google.com/s2/favicons?domain=huggingface.co&sz=64" alt="" style="height:17px; width:17px; border-radius:3px;" onerror="this.style.display='none'">Try the live demo <span aria-hidden="true">&rarr;</span></a>
-          <a href="https://docs.groundlens.dev" style="font-size:14px; font-weight:500; color:#9aa4b0;">Read the docs</a>
+          <a href="https://docs.groundlens.dev" style="font-size:14px; font-weight:500; color:#c2c9d1; display:inline-flex; align-items:center; gap:8px;">Read the docs <span aria-hidden="true">&rarr;</span></a>
+          <a href="https://github.com/groundlens-dev/groundlens/tree/main/packs" style="font-size:14px; font-weight:500; color:#9aa4b0;">See a rule pack</a>
         </div>
       </div>
 
@@ -88,11 +88,19 @@
               <span style="width:9px; height:9px; border-radius:50%; background:#2a323b;"></span>
               <span style="width:9px; height:9px; border-radius:50%; background:#2a323b;"></span>
               <span style="width:9px; height:9px; border-radius:50%; background:#2a323b;"></span>
-              <span style="margin-left:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">Claude · Groundlens MCP</span>
+              <span style="margin-left:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">the answer under check</span>
             </div>
-            <img src="https://raw.githubusercontent.com/groundlens-dev/groundlens/main/examples/groundlens_check.gif" alt="A deterministic CHECK printed live under every answer inside Claude" style="display:block; width:100%; height:auto;">
+            <div style="padding:22px; font-size:15px; line-height:1.75; color:#c2c9d1;">
+              <p style="margin:0 0 18px;">&ldquo;You <mark style="background:rgba(252,118,4,0.18); color:#ffb46b; padding:0 3px; border-radius:3px;">must</mark> call us before you travel abroad. The annual fee is <mark style="background:rgba(252,118,4,0.18); color:#ffb46b; padding:0 3px; border-radius:3px;">45,00 EUR</mark>.&rdquo;</p>
+              <div style="border-top:1px solid #171c22; padding-top:16px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.85; color:#9aa4b0;">
+                <div style="color:#fc7604; margin-bottom:8px;">escalate</div>
+                <div>BNK-001 &nbsp;the answer says &lsquo;45,00 EUR&rsquo;, the source says EUR 30</div>
+                <div>BNK-020 &nbsp;the answer tells the reader they must call, no source says that</div>
+                <div>BNK-031 &nbsp;a required disclosure block is missing</div>
+              </div>
+            </div>
           </div>
-          <figcaption style="margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#6b7684; line-height:1.5;">A deterministic CHECK printed under every answer, live inside Claude.</figcaption>
+          <figcaption style="margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#6b7684; line-height:1.5;">Two decisions, clear or escalate. Each finding names the rule and the words it came from.</figcaption>
         </figure>
       </div>
     </section>
@@ -101,186 +109,190 @@
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
       <div data-col style="display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:56px; align-items:start;">
         <div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">Install & first check</div>
-          <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 16px;">One question, one answer, one source. One reading you can act on.</h2>
-          <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 24px; line-height:1.6;">You give Groundlens a question, an answer, and the source it was supposed to use. It returns a plain-language <span style="color:#e8ebef; font-family:'IBM Plex Mono',monospace; font-size:14px;">CHECK</span> — and does it in milliseconds, the same way every time.</p>
-          <a href="https://docs.groundlens.dev" style="font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:7px;">Read the docs <span aria-hidden="true">&rarr;</span></a>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">Install &amp; first check</div>
+          <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 16px;">One answer, its sources, your rules. Clear, or send it to a person.</h2>
+          <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 24px; line-height:1.6;">There is no score and no threshold. A number between zero and one invites somebody to move the line later, and a control whose line moves is not a control. The only runtime dependency is <span style="color:#e8ebef; font-family:'IBM Plex Mono',monospace; font-size:14px;">pyyaml</span>.</p>
+          <a href="https://docs.groundlens.dev/getting-started/quickstart/" style="font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:7px;">Read the quickstart <span aria-hidden="true">&rarr;</span></a>
         </div>
         <div style="border:1px solid #1e242b; border-radius:12px; overflow:hidden; background:#0d1014;">
           <div style="display:flex; align-items:center; justify-content:space-between; padding:11px 16px; border-bottom:1px solid #171c22; background:#0f1318;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">first_check.py</span>
             <button onclick="glCopyCode(event)" style="border:1px solid #262d35; background:transparent; color:#9aa4b0; font-family:'IBM Plex Mono',monospace; font-size:12px; padding:4px 12px; border-radius:6px; cursor:pointer;">Copy</button>
           </div>
-          <pre style="margin:0; padding:20px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:13.5px; line-height:1.7;"><code><span style="color:#6ea8c9;">from</span> groundlens <span style="color:#6ea8c9;">import</span> compute_sgi, check
+          <pre style="margin:0; padding:20px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.7;"><code><span style="color:#6ea8c9;">from</span> datetime <span style="color:#6ea8c9;">import</span> date
+<span style="color:#6ea8c9;">from</span> groundlens <span style="color:#6ea8c9;">import</span> check
 
-question = <span style="color:#a3b88c;">"What is the daily transfer limit?"</span>
-context  = <span style="color:#a3b88c;">"The daily transfer limit is 1,000 EUR per day."</span>
-response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transaction."</span>  <span style="color:#5c6773;"># not in the source</span>
+result = check(
+    answer,
+    [&#123;<span style="color:#a3b88c;">"id"</span>: <span style="color:#a3b88c;">"terms.pdf#p2"</span>, <span style="color:#a3b88c;">"text"</span>: source_text&#125;],
+    ruleset=<span style="color:#a3b88c;">"eu-retail-banking"</span>,
+    metadata=&#123;<span style="color:#a3b88c;">"product_type"</span>: <span style="color:#a3b88c;">"credit-card"</span>,
+              <span style="color:#a3b88c;">"disclosure_set"</span>: <span style="color:#a3b88c;">"es-2026"</span>&#125;,
+    reference_date=date(<span style="color:#d9a441;">2026</span>, <span style="color:#d9a441;">8</span>, <span style="color:#d9a441;">8</span>),
+)
 
-<span style="color:#d9a441;">print</span>(check(compute_sgi(
-    question=question, context=context, response=response,
-)).render())
+<span style="color:#d9a441;">print</span>(result.decision.value)
+<span style="color:#6ea8c9;">for</span> f <span style="color:#6ea8c9;">in</span> result.findings:
+    <span style="color:#6ea8c9;">if</span> f.severity.value == <span style="color:#a3b88c;">"fail"</span>:
+        <span style="color:#d9a441;">print</span>(f.rule_id, f.message)
 
-<span style="color:#5c6773;"># CHECK: Not supported by the document (SGI=0.00)</span>
-<span style="color:#5c6773;"># The answer stays closer to the question than to the</span>
-<span style="color:#5c6773;"># source, so it may not come from the document.</span></code></pre>
+<span style="color:#5c6773;"># escalate</span>
+<span style="color:#5c6773;"># BNK-031 Required disclosure block present.</span>
+<span style="color:#5c6773;"># BNK-020 The answer tells the reader 'You must call</span>
+<span style="color:#5c6773;">#         us before you travel abroad', and no source</span>
+<span style="color:#5c6773;">#         says that.</span></code></pre>
         </div>
       </div>
     </section>
 
     <!-- HOW IT WORKS -->
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">The verification pipeline</div>
-      <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 12px; max-width:26ch;">You have to verify every LLM call. You can't afford to verify them all the expensive way.</h2>
-      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 44px; max-width:64ch; line-height:1.6;">Verification is a pipeline of six stages, ordered cheapest to most expensive. Each stage is a filter: it settles what it can and passes only the doubtful cases forward. <span style="color:#e8ebef;">Groundlens is stages 1–4</span> — geometry, a state switch, consistency, and rules. So the slow, costly stages 5–6 only ever see the few answers that were actually flagged.</p>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">What it checks</div>
+      <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 12px; max-width:30ch;">An answer can be well written, well sourced, and still tell somebody the wrong thing they have to do.</h2>
+      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 44px; max-width:66ch; line-height:1.6;">A generated answer turns a &ldquo;may&rdquo; into a &ldquo;must&rdquo;, moves a deadline by a week, restates an amount that no document contains, or cites a section nobody supplied. Groundlens pulls those statements out of the answer as typed, checkable facts, each with the exact words it came from, and compares every one of them against the sources you passed and the rules you wrote.</p>
 
-      <div style="overflow-x:auto; margin:0 -4px; padding:0 4px;">
-        <div style="min-width:920px;">
-
-          <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#6b7684; margin-bottom:12px;">
-            <span style="color:#fc7604;">&larr; cheap · fast · deterministic</span>
-            <span>expensive · slow · human &rarr;</span>
-          </div>
-
-          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; align-items:end; height:96px; margin-bottom:10px;">
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:100%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03);"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:72%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.92;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:48%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.85;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:32%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#fc7604,#c85e03); opacity:0.78;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:18%; border-radius:6px 6px 0 0; background:#3a434d;"></div></div>
-            <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;"><div style="height:8%; border-radius:6px 6px 0 0; background:#3a434d;"></div></div>
-          </div>
-          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:22px;">
-            <span>100%</span><span>~70%</span><span>~45%</span><span>~30%</span><span>~15%</span><span>a few %</span>
-          </div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">Illustrative funnel shape, not measured pass-through rates &mdash; yours depend on your thresholds and traffic.
-          </div>
-
-          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:14px;">
-            <div style="grid-column:span 4; border-top:2px solid #fc7604; padding-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604;">Groundlens · fast & cheap · geometry + switch + small open model + rules</div>
-            <div style="grid-column:span 2; border-top:2px solid #2a323b; padding-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">You add · slow · expensive</div>
-          </div>
-
-          <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:12px;">
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">01</div>
-              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Geometry</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">SGI / DGI</div>
-              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Did the answer come from its source, or drift off it?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">no model</span>
-            </div>
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">02</div>
-              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Switch</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">state gate</div>
-              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">May this answer enter agent or RAG state?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">no model</span>
-            </div>
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">03</div>
-              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Consistency</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">resample</div>
-              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Does the model agree with itself when asked again?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#fc7604; border:1px solid rgba(252,118,4,0.4); border-radius:5px; padding:2px 7px;">small model</span>
-            </div>
-            <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:16px; background:rgba(252,118,4,0.04);">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; margin-bottom:12px;">04</div>
-              <div style="font-weight:600; font-size:14px; margin-bottom:6px;">Rules</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9aa4b0; margin-bottom:10px;">named checks</div>
-              <p style="color:#9aa4b0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Did it break a policy, invent a number, skip a disclosure?</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#c2c9d1; border:1px solid #2a323b; border-radius:5px; padding:2px 7px;">policy</span>
-            </div>
-            <div style="border:1px solid #1a2027; border-radius:10px; padding:16px; background:#0b0d0f;">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; margin-bottom:12px;">05</div>
-              <div style="font-weight:600; font-size:14px; margin-bottom:6px; color:#c2c9d1;">LLM as judge</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">your stage</div>
-              <p style="color:#8892a0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">Hard cases that need real reasoning over the evidence.</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7684; border:1px solid #262d35; border-radius:5px; padding:2px 7px;">tokens</span>
-            </div>
-            <div style="border:1px solid #1a2027; border-radius:10px; padding:16px; background:#0b0d0f;">
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; margin-bottom:12px;">06</div>
-              <div style="font-weight:600; font-size:14px; margin-bottom:6px; color:#c2c9d1;">Human review</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6b7684; margin-bottom:10px;">your stage</div>
-              <p style="color:#8892a0; font-size:12.5px; margin:0 0 12px; line-height:1.5;">A person makes the final call.</p>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7684; border:1px solid #262d35; border-radius:5px; padding:2px 7px;">a person</span>
-            </div>
-          </div>
-
+      <div data-cards4 style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:36px;">
+        <div style="border:1px solid rgba(252,118,4,0.28); border-radius:10px; padding:22px; background:rgba(252,118,4,0.04);">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">Obligations</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#fc7604; margin-bottom:10px;">must · must not · may · need not · should</div>
+          <p style="color:#9aa4b0; font-size:13px; margin:0; line-height:1.55;">The five strengths are ranked, so an answer that is firmer than the evidence behind it is a finding, not a rounding error.</p>
+        </div>
+        <div style="border:1px solid #1a2027; border-radius:10px; padding:22px; background:#0d1014;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">Deadlines and dates</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9aa4b0; margin-bottom:10px;">within 14 days · by 31 March</div>
+          <p style="color:#9aa4b0; font-size:13px; margin:0; line-height:1.55;">Business days are not calendar days. Relative dates resolve against a date you pass in, never against the clock.</p>
+        </div>
+        <div style="border:1px solid #1a2027; border-radius:10px; padding:22px; background:#0d1014;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">Amounts and rates</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9aa4b0; margin-bottom:10px;">currency · number · percent</div>
+          <p style="color:#9aa4b0; font-size:13px; margin:0; line-height:1.55;">Compared as decimals, never as floats, and read through the pack&rsquo;s locale rather than the machine&rsquo;s.</p>
+        </div>
+        <div style="border:1px solid #1a2027; border-radius:10px; padding:22px; background:#0d1014;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">Citations</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9aa4b0; margin-bottom:10px;">article · section · clause</div>
+          <p style="color:#9aa4b0; font-size:13px; margin:0; line-height:1.55;">A citation has to resolve to a source you actually passed. Same instrument, wrong article, is caught.</p>
         </div>
       </div>
 
-      <div style="margin-top:36px; padding:22px 24px; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
-        <p style="margin:0; font-size:15px; line-height:1.65; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">This is the whole reason Groundlens exists.</span> Use it as triage at the front of the pipeline: clear the obvious cases in milliseconds, keep ungrounded answers out of agent state, and escalate only what's flagged to a judge model or a human. Same coverage on every call — a fraction of the time and cost.</p>
+      <div data-col style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px;">
+        <div style="padding:22px 24px; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:10px;">The rules are a file, not code</div>
+          <p style="color:#9aa4b0; font-size:14px; margin:0 0 12px; line-height:1.6;">A rule pack is YAML. Somebody who does not write Python can read it, diff two versions of it and sign the diff. Its identity is the hash of its bytes, and that hash goes into every record.</p>
+          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">If a pack says the caller has to declare the product type and the caller does not, the answer escalates. There is no flag to switch that off.</p>
+        </div>
+        <div style="padding:22px 24px; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:10px;">The same inputs give the same answer tomorrow</div>
+          <p style="color:#9aa4b0; font-size:14px; margin:0 0 12px; line-height:1.6;">No floating point in the decision path. No wall clock. No locale read from the environment. No randomness. Reruns reproduce the record byte for byte, and each row of the log is hashed against the row before it.</p>
+          <p style="color:#6b7684; font-size:13px; margin:0; line-height:1.6;">That is a property of the tool. It is not a claim about what any regulation requires of you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT THIS IS NOT -->
+    <section style="padding:80px 0; border-bottom:1px solid #141a20;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">What this is not</div>
+      <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 12px; max-width:28ch;">If you want to know how well an answer matches its source, use one of these instead.</h2>
+      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 32px; max-width:66ch; line-height:1.6;">Groundlens is narrow on purpose. It is not a hallucination detector and it does not produce a factual consistency score. Every tool below is good at the job next to it, and several teams will want Groundlens alongside one of them rather than instead of one.</p>
+
+      <div style="overflow-x:auto; border:1px solid #1a2027; border-radius:10px; background:#0d1014; margin-bottom:20px;">
+        <table style="width:100%; min-width:620px; border-collapse:collapse; font-size:14px;">
+          <thead>
+            <tr style="text-align:left; color:#9aa4b0; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.04em;">
+              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22;">You need</th>
+              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22;">Use</th>
+              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22;">Why it is better at this</th>
+            </tr>
+          </thead>
+          <tbody style="color:#c2c9d1;">
+            <tr>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;">Which words in an answer the retrieved text does not support</td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;"><a href="https://github.com/KRLabsOrg/LettuceDetect">LettuceDetect</a></td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20; color:#9aa4b0;">MIT, one pip install, runs offline with no LLM, returns token level spans over the whole answer. This is the general groundedness job and it does it well.</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;">One number for how well a summary sticks to its source</td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;"><a href="https://huggingface.co/vectara/hallucination_evaluation_model">Vectara HHEM</a></td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20; color:#9aa4b0;">An open model built and tuned for exactly that score.</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;">Metrics over a test set while you tune a RAG pipeline</td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;"><a href="https://github.com/explodinggradients/ragas">RAGAS</a>, <a href="https://github.com/confident-ai/deepeval">DeepEval</a></td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20; color:#9aa4b0;">Faithfulness, answer relevancy, context precision, dataset runners, CI reporting. Groundlens has none of that.</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;">A managed service inside your cloud</td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;"><a href="https://learn.microsoft.com/azure/ai-services/content-safety/concepts/groundedness">Azure AI Content Safety</a></td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20; color:#9aa4b0;">Hosted, supported, no weights to ship, and it covers the input side too.</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;">Proof that a claim follows from an encoded policy</td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20;"><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/automated-reasoning.html">AWS Bedrock Automated Reasoning checks</a></td>
+              <td style="padding:13px 20px; border-bottom:1px solid #141a20; color:#9aa4b0;">Real logical verification against a policy model, with immutable numbered policy versions.</td>
+            </tr>
+            <tr>
+              <td style="padding:13px 20px;">To measure how often a model hallucinates</td>
+              <td style="padding:13px 20px;"><a href="https://github.com/facebookresearch/HalluLens">HalluLens</a></td>
+              <td style="padding:13px 20px; color:#9aa4b0;">A benchmark, which is a different thing from a control in a live pipeline.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div data-cards3 style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <div style="border:1px solid #262d35; border-radius:10px; padding:22px; background:#0f1013;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">It does not measure truth</div>
+          <p style="color:#9aa4b0; font-size:13.5px; margin:0; line-height:1.6;">If a claim is wrong and every source agrees with it, Groundlens clears it.</p>
+        </div>
+        <div style="border:1px solid #262d35; border-radius:10px; padding:22px; background:#0f1013;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">It does not read prose for meaning</div>
+          <p style="color:#9aa4b0; font-size:13.5px; margin:0; line-height:1.6;">A defect written in words it does not extract will pass. It catches what a pack asks for and nothing else.</p>
+        </div>
+        <div style="border:1px solid #262d35; border-radius:10px; padding:22px; background:#0f1013;">
+          <div style="font-weight:600; font-size:15px; margin-bottom:8px;">It does not cover the input side</div>
+          <p style="color:#9aa4b0; font-size:13.5px; margin:0; line-height:1.6;">Prompt injection, harmful content and jailbreaks are somebody else&rsquo;s job.</p>
+        </div>
       </div>
     </section>
 
     <!-- THE PROOF -->
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">The proof</div>
-      <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 24px; max-width:24ch;">What it catches, what it doesn't, and why you can check both.</h2>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">Research</div>
+      <h2 style="font-size:26px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 24px; max-width:28ch;">Where Groundlens started, and the finding that moved it on.</h2>
 
-      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 20px; max-width:70ch; line-height:1.6;">Hold the questions fixed and change only how the wrong answer is written. Detection accuracy tracks how close the wrong answer sits to the register of the right one — not how good the detector is.</p>
-
-      <div style="overflow-x:auto; border:1px solid #1a2027; border-radius:10px; background:#0d1014; margin-bottom:16px;">
-        <table style="width:100%; min-width:560px; border-collapse:collapse; font-size:14px;">
-          <thead>
-            <tr style="text-align:left; color:#9aa4b0; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.04em;">
-              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22;">Benchmark</th>
-              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22; text-align:right;">Detection accuracy</th>
-              <th style="padding:14px 20px; font-weight:500; border-bottom:1px solid #171c22; text-align:right;">Paired similarity cos(g,c)</th>
-            </tr>
-          </thead>
-          <tbody style="color:#c2c9d1;">
-            <tr><td style="padding:13px 20px; border-bottom:1px solid #141a20;">HaluEval (LLM-generated)</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">88&ndash;97%</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">0.10&ndash;0.78</td></tr>
-            <tr><td style="padding:13px 20px; border-bottom:1px solid #141a20;">LLM confabulations (same questions)</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">73&ndash;76%</td><td style="padding:13px 20px; border-bottom:1px solid #141a20; text-align:right; font-family:'IBM Plex Mono',monospace;">0.86&ndash;0.96</td></tr>
-            <tr style="color:#e8ebef; font-weight:600;"><td style="padding:13px 20px;">Human confabulations (GL-212)</td><td style="padding:13px 20px; text-align:right; font-family:'IBM Plex Mono',monospace;">69&ndash;78%</td><td style="padding:13px 20px; text-align:right; font-family:'IBM Plex Mono',monospace;">0.72&ndash;0.92</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="color:#6b7684; font-size:12.5px; font-family:'IBM Plex Mono',monospace; margin:0 0 28px; line-height:1.6;">Ranges across four encoders: all-MiniLM-L6-v2, all-mpnet-base-v2, bge-small-en-v1.5, gte-small. Pairwise-detection accuracy = fraction of pairs where cos(q,g) &gt; cos(q,c). The middle row is the control: same questions, machine-written negatives. It is register, not authorship.</p>
+      <p style="color:#9aa4b0; font-size:15.5px; margin:0 0 20px; max-width:70ch; line-height:1.6;">Groundlens began as geometry. SGI and DGI measure where an answer sits relative to its question and to its source, with no model call, and they rank an answer that ignored the document it was given. That work is now optional and lives behind <span style="color:#e8ebef; font-family:'IBM Plex Mono',monospace; font-size:14px;">pip install "groundlens[geometry]"</span>.</p>
 
       <div style="padding:22px 24px; margin-bottom:36px; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
-        <p style="margin:0 0 12px; font-size:14.5px; line-height:1.65; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">Honest scope.</span> Register alignment predicts detectability: across 15 quintile points the rank correlation between register alignment and AUROC is Spearman &minus;0.90, and a cross-encoder control reaches &minus;1.00 in four of six dataset/direction pairs. DGI reaches AUROC 0.897 on TruthfulQA, 0.712 on GL-212 and 0.617 on RAGTruth &mdash; the spread is the register effect, not three different detectors. With authorship held constant, logistic, MLP and DGI land at 0.660, 0.675 and 0.606.</p>
-        <p style="margin:0; font-size:14.5px; line-height:1.65; color:#9aa4b0;">The bound we prove covers detectors that are a function of a single frozen sentence embedding &mdash; not activations, not log-probs, not multi-sample, not retrieval. Register sufficiency is an assumption, not a theorem, and only partly true: residual surface features keep partial Spearman up to 0.37 after register alignment is controlled. Stronger classifiers keep some signal too &mdash; random forests and XGBoost reach 0.68&ndash;0.88 at high register alignment. The one number here you can reproduce today is the GL-212 row, with <code>scripts/validate.py</code>. The AUROC figures come from the manuscript; the notebooks are not released yet.</p>
+        <p style="margin:0 0 12px; font-size:14.5px; line-height:1.65; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">The limit, from our own work.</span> Hold the questions fixed and change only how a wrong answer is written. Detectability tracks how closely the wrong answer matches the register of the right one, and it falls toward chance as the two converge. A wrong value written in exactly the right style is close to invisible to any detector built on a single frozen sentence embedding.</p>
+        <p style="margin:0; font-size:14.5px; line-height:1.65; color:#9aa4b0;">That result is why the product moved to typed statements and written rules. A &ldquo;must&rdquo; where the source says &ldquo;may&rdquo; is in perfect register and geometry cannot see it. Read as a string, it is plain.</p>
       </div>
 
-      <div style="display:flex; gap:14px; align-items:flex-start; padding:18px 22px; margin-bottom:36px; border:1px solid rgba(252,118,4,0.35); border-radius:10px; background:rgba(252,118,4,0.06);">
-        <span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; font-size:14px; margin-top:1px;">!</span>
-        <p style="margin:0; font-size:14.5px; line-height:1.6; color:#c2c9d1;"><span style="color:#e8ebef; font-weight:600;">SGI and DGI measure grounding, not truth.</span> These two geometric scores tell you whether an answer is <em>grounded</em> in its source — not whether it is <em>true</em>. A <span style="color:#e8ebef;">hallucination</span> phrased faithfully can still score as grounded. That gap is why the pipeline has Consistency: it probes truth by asking the model again. Read an SGI/DGI score as "did this come from the source?" — and lean on Consistency for "does the model actually know this?"</p>
-      </div>
-
-      <div data-cards3 style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:36px;">
-        <div style="border:1px solid #1a2027; border-radius:10px; padding:24px; background:#0d1014;">
-          <div style="font-weight:600; font-size:16px; margin-bottom:10px;">What it catches</div>
-          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">Answers that ignore the source or drift off the question — the failures that leave a trace in the geometry of the text.</p>
-        </div>
-        <div style="border:1px solid #262d35; border-radius:10px; padding:24px; background:#0f1013;">
-          <div style="font-weight:600; font-size:16px; margin-bottom:10px;">The blind spot, said out loud</div>
-          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">A wrong fact phrased exactly like a right one sits next to a correct answer. Geometry can't separate them — which is precisely why a consistency stage exists.</p>
-        </div>
-        <div style="border:1px solid #1a2027; border-radius:10px; padding:24px; background:#0d1014;">
-          <div style="font-weight:600; font-size:16px; margin-bottom:10px;">Reproducible</div>
-          <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.6;">Scores are a pure function of the input and the pinned version. Within a pinned version — encoder, thresholds and reference direction — the same input gives the same score, byte for byte, forever. Across versions those constants change: the default encoder moved to <code>sentence-t5-large</code> and the DGI cut to 0.525 in 2026.8.5. Pin the version in your audit trail, and re-baseline when you upgrade.</p>
-        </div>
-      </div>
+      <p style="color:#9aa4b0; font-size:15px; margin:0 0 16px; max-width:70ch; line-height:1.6;">Five arXiv preprints. Each has been revised in response to reviews. None is a peer-reviewed publication.</p>
 
       <div style="border:1px solid #1a2027; border-radius:10px; overflow:hidden;">
         <a href="https://arxiv.org/abs/2512.13771" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid #171c22; color:#e8ebef;">
-          <span style="font-size:14.5px;">Semantic Grounding Index — geometric bounds on context engagement in RAG systems</span>
+          <span style="font-size:14.5px;">Semantic Grounding Index &mdash; geometric bounds on context engagement in RAG systems</span>
           <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; white-space:nowrap;">arXiv:2512.13771 &rarr;</span>
         </a>
         <a href="https://arxiv.org/abs/2602.13224" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid #171c22; color:#e8ebef;">
           <span style="font-size:14.5px;">A Geometric Taxonomy of Hallucinations in LLMs</span>
           <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; white-space:nowrap;">arXiv:2602.13224 &rarr;</span>
         </a>
-        <a href="https://arxiv.org/abs/2603.13259" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; color:#e8ebef;">
-          <span style="font-size:14.5px;">How Transformers Reject Wrong Answers — rotational dynamics of factual constraint</span>
+        <a href="https://arxiv.org/abs/2603.13259" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid #171c22; color:#e8ebef;">
+          <span style="font-size:14.5px;">How Transformers Reject Wrong Answers &mdash; rotational dynamics of factual constraint</span>
           <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604; white-space:nowrap;">arXiv:2603.13259 &rarr;</span>
         </a>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-bottom:1px solid #171c22; color:#9aa4b0;">
+          <span style="font-size:14.5px;">The Outer Geometry of Truth &mdash; register alignment and the limits of embedding-based detection</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; white-space:nowrap;">preprint</span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; color:#9aa4b0;">
+          <span style="font-size:14.5px;">The Geometry of Validity</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684; white-space:nowrap;">preprint</span>
+        </div>
       </div>
       <div style="display:flex; gap:20px; margin-top:20px; font-size:14px;">
+        <a href="https://docs.groundlens.dev/research/geometry-quickstart/">Geometry quickstart &rarr;</a>
         <a href="https://github.com/groundlens-dev/grounding-benchmark">Benchmarks &rarr;</a>
-        <a href="https://huggingface.co/spaces/groundlens/demo">Live demo &rarr;</a>
         <a href="https://github.com/groundlens-dev/groundlens">Source &rarr;</a>
       </div>
     </section>
@@ -291,7 +303,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
         <div>
           <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#fc7604; margin-bottom:16px;">Integrations</div>
           <h2 style="font-size:24px; line-height:1.2; letter-spacing:-0.02em; font-weight:600; margin:0 0 16px;">Drop it into the stack you already run.</h2>
-          <p style="color:#9aa4b0; font-size:15px; margin:0 0 24px; line-height:1.6;">Score every response in place — SGI when you pass the source, DGI otherwise — and collect the readings.</p>
+          <p style="color:#9aa4b0; font-size:15px; margin:0 0 24px; line-height:1.6;">Check every answer where it is produced, hold the ones that escalate, and keep the record.</p>
           <div style="display:flex; flex-wrap:wrap; gap:8px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#c2c9d1; border:1px solid #262d35; border-radius:6px; padding:6px 12px; background:#0d1014; display:inline-flex; align-items:center; gap:8px;"><img src="https://www.google.com/s2/favicons?domain=langchain.com&sz=64" alt="" style="height:15px; width:15px; border-radius:3px;" onerror="this.style.display='none'">LangChain</span>
             <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#c2c9d1; border:1px solid #262d35; border-radius:6px; padding:6px 12px; background:#0d1014; display:inline-flex; align-items:center; gap:8px;"><img src="https://www.google.com/s2/favicons?domain=langchain.com&sz=64" alt="" style="height:15px; width:15px; border-radius:3px;" onerror="this.style.display='none'">LangGraph</span>
@@ -299,11 +311,11 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
             <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#c2c9d1; border:1px solid #262d35; border-radius:6px; padding:6px 12px; background:#0d1014; white-space:nowrap; display:inline-flex; align-items:center; gap:8px;"><img src="https://www.google.com/s2/favicons?domain=microsoft.com&sz=64" alt="" style="height:15px; width:15px; border-radius:3px;" onerror="this.style.display='none'">Semantic Kernel</span>
             <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#c2c9d1; border:1px solid #262d35; border-radius:6px; padding:6px 12px; background:#0d1014; white-space:nowrap; display:inline-flex; align-items:center; gap:8px;"><img src="https://www.google.com/s2/favicons?domain=microsoft.com&sz=64" alt="" style="height:15px; width:15px; border-radius:3px;" onerror="this.style.display='none'">AutoGen</span>
           </div>
-          <div style="margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">Claude · GPT · Gemini — for the consistency stage.</div>
+          <div style="margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6b7684;">Claude · GPT · Gemini for the cases that escalate.</div>
         </div>
         <div style="border:1px solid #1e242b; border-radius:12px; padding:26px; background:#0d1014;">
-          <div style="font-weight:600; font-size:16px; margin-bottom:8px;">In your editor — the MCP server</div>
-          <p style="color:#9aa4b0; font-size:14px; margin:0 0 20px; line-height:1.6;">The same first-stage check inside Claude, Cursor, and VS Code. It prints a CHECK under each answer, with no model in the scoring path.</p>
+          <div style="font-weight:600; font-size:16px; margin-bottom:8px;">In your editor, the MCP server</div>
+          <p style="color:#9aa4b0; font-size:14px; margin:0 0 20px; line-height:1.6;">The same check inside Claude, Cursor, and VS Code, with no model in the path.</p>
           <div style="display:flex; flex-direction:column; gap:10px;">
             <a href="https://cursor.com/install-mcp?name=groundlens&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJncm91bmRsZW5zLW1jcCJdfQ%3D%3D" style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border:1px solid #262d35; border-radius:8px; color:#e8ebef; background:#0f1318;"><span style="font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:9px;"><img src="https://www.google.com/s2/favicons?domain=cursor.com&sz=64" alt="" style="height:16px; width:16px; border-radius:3px;" onerror="this.style.display='none'">Add to Cursor</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604;">install &rarr;</span></a>
             <a href="https://insiders.vscode.dev/redirect/mcp/install?name=groundlens&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22groundlens-mcp%22%5D%7D" style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border:1px solid #262d35; border-radius:8px; color:#e8ebef; background:#0f1318;"><span style="font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:9px;"><img src="https://www.google.com/s2/favicons?domain=code.visualstudio.com&sz=64" alt="" style="height:16px; width:16px; border-radius:3px;" onerror="this.style.display='none'">Add to VS Code</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#fc7604;">install &rarr;</span></a>
@@ -322,9 +334,9 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
           <a href="https://github.com/groundlens-dev/groundlens/blob/main/DATA_HANDLING.md" style="font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:7px;">Read DATA_HANDLING.md <span aria-hidden="true">&rarr;</span></a>
         </div>
         <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;">
-          <li style="display:flex; gap:12px; align-items:flex-start; color:#c2c9d1; font-size:14.5px; line-height:1.55;"><span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; margin-top:1px;">&mdash;</span>The core scores on your machine. It never sends your data out.</li>
+          <li style="display:flex; gap:12px; align-items:flex-start; color:#c2c9d1; font-size:14.5px; line-height:1.55;"><span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; margin-top:1px;">&mdash;</span>The check runs on your machine. It never sends your data out.</li>
           <li style="display:flex; gap:12px; align-items:flex-start; color:#c2c9d1; font-size:14.5px; line-height:1.55;"><span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; margin-top:1px;">&mdash;</span>API keys are yours; calls go direct to the provider you choose.</li>
-          <li style="display:flex; gap:12px; align-items:flex-start; color:#c2c9d1; font-size:14.5px; line-height:1.55;"><span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; margin-top:1px;">&mdash;</span>No telemetry. Same inputs, same scores — a trail you can reproduce and audit.</li>
+          <li style="display:flex; gap:12px; align-items:flex-start; color:#c2c9d1; font-size:14.5px; line-height:1.55;"><span style="color:#fc7604; font-family:'IBM Plex Mono',monospace; margin-top:1px;">&mdash;</span>No telemetry. Same inputs, same decision. Metadata values never reach the record, only the key names.</li>
         </ul>
       </div>
     </section>
@@ -333,7 +345,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
       <div style="max-width:56ch;">
         <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#6b7684; margin-bottom:16px;">Who maintains it</div>
-        <p style="font-size:18px; line-height:1.6; color:#e8ebef; margin:0 0 18px; letter-spacing:-0.01em;"><span style="font-weight:600;">Javier Marín</span> created the method and the library. Published in the open, maintained in the open. Five arXiv preprints are the method on the record. Each of the three listed above has been through peer review at COLM, NeurIPS or ACL, three reviewers per paper, and each current version was revised to address every point raised. None is accepted at a venue yet.</p>
+        <p style="font-size:18px; line-height:1.6; color:#e8ebef; margin:0 0 18px; letter-spacing:-0.01em;"><span style="font-weight:600;">Javier Marín</span> created the method and the library. Published in the open, maintained in the open. Five arXiv preprints are the method on the record. Each has been revised in response to reviews. None is a peer-reviewed publication.</p>
         <div style="display:flex; flex-wrap:wrap; gap:18px; font-size:13.5px; align-items:center;">
           <a href="https://github.com/groundlens-dev">GitHub &rarr;</a>
           <a href="https://www.linkedin.com/in/javiermarinvalenzuela/">LinkedIn &rarr;</a>
@@ -342,7 +354,7 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
         <div style="margin-top:34px; padding:22px 24px; border:1px solid #1e242b; border-radius:12px; background:#0d1014; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
           <div style="max-width:46ch;">
             <div style="font-weight:600; font-size:15px; margin-bottom:6px;">Fund the work</div>
-            <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.55;">One person maintains this in the open. If it verifies answers you ship, funding buys more of it — and keeps it free for everyone else.</p>
+            <p style="color:#9aa4b0; font-size:14px; margin:0; line-height:1.55;">One person maintains this in the open. If it checks answers you ship, funding buys more of it and keeps it free for everyone else.</p>
           </div>
           <a href="https://manifund.org/javier-marin" style="display:inline-flex; align-items:center; gap:10px; padding:11px 18px; border-radius:9px; background:#fc7604; color:#0a0c0e; font-weight:600; font-size:14px; white-space:nowrap;"><img src="https://www.google.com/s2/favicons?domain=manifund.org&sz=64" alt="" style="height:17px; width:17px; border-radius:3px;" onerror="this.style.display='none'">Support on Manifund <span aria-hidden="true">&rarr;</span></a>
         </div>
@@ -374,15 +386,22 @@ response = <span style="color:#a3b88c;">"The daily limit is 500 EUR per transact
 function glFlash(e,l){var b=e.currentTarget,p=b.textContent;b.textContent=l;setTimeout(function(){b.textContent=p},1500)}
 function glCopy(t,e){try{navigator.clipboard.writeText(t)}catch(x){}glFlash(e,"Copied")}
 function glCopyInstall(e){glCopy("pip install groundlens",e)}
-function glCopyCode(e){glCopy(`from groundlens import compute_sgi, check
+function glCopyCode(e){glCopy(`from datetime import date
+from groundlens import check
 
-question = "What is the daily transfer limit?"
-context  = "The daily transfer limit is 1,000 EUR per day."
-response = "The daily limit is 500 EUR per transaction."  # not in the source
+result = check(
+    answer,
+    [{"id": "terms.pdf#p2", "text": source_text}],
+    ruleset="eu-retail-banking",
+    metadata={"product_type": "credit-card",
+              "disclosure_set": "es-2026"},
+    reference_date=date(2026, 8, 8),
+)
 
-print(check(compute_sgi(
-    question=question, context=context, response=response,
-)).render())`,e)}
+print(result.decision.value)
+for f in result.findings:
+    if f.severity.value == "fail":
+        print(f.rule_id, f.message)`,e)}
 </script>
 </body>
 </html>
