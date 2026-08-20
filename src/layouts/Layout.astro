@@ -73,6 +73,28 @@ const { title, description, image, pagefindIgnore, article } = Astro.props;
 			</LayoutGrid>
 			<slot name="404" />
 		</main>
+		<footer class="site-footer">
+			<p>
+				&copy; 2026 Groundlens. Copyright &copy; Javier Mar&iacute;n &reg;. All rights reserved.
+				For more information, including terms of use, privacy policy, and trademark usage,
+				please see our <a href="https://github.com/groundlens-dev/groundlens">github repository</a>
+				for more details.
+			</p>
+		</footer>
+		<style is:global>
+			.site-footer {
+				max-width: 900px;
+				margin: 64px auto 0;
+				padding: 24px 24px 56px;
+				border-top: 1px solid var(--lightest-gray, #171c22);
+			}
+			.site-footer p {
+				margin: 0;
+				font-size: 13px;
+				line-height: 1.7;
+				color: var(--gray, #6b7684);
+			}
+		</style>
 		<Background />
 	</body>
 </html>
