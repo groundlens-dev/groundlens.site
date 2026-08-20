@@ -173,6 +173,19 @@ const description = "Groundlens checks RAG answers for grounding and faithfulnes
       </div>
     </section>
 
+    <!-- HOW IT WORKS, THE DIAGRAM -->
+    <section style="padding:72px 0 12px;">
+      <figure style="margin:0;">
+        <img src="https://raw.githubusercontent.com/groundlens-dev/groundlens/main/docs/assets/Groundlens1.png"
+             alt="How Groundlens checks an answer: words are anchored by meaning against the sources, numbers by exact arithmetic, and the weakest anchor is reported rather than the mean."
+             loading="lazy" decoding="async"
+             style="display:block; width:100%; height:auto; border:1px solid #1e242b; border-radius:12px; background:#0d1014;">
+        <figcaption style="margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#6b7684; line-height:1.5; text-align:center;">
+          One answer, its sources, two channels, and a floor instead of a mean.
+        </figcaption>
+      </figure>
+    </section>
+
     <!-- TEN IS NOT A HUNDRED -->
     <section style="padding:80px 0; border-bottom:1px solid #141a20;">
       <h2>A wrong number inside a right sentence is invisible to similarity.</h2>
@@ -433,8 +446,8 @@ print(marks.report())
   </main>
 
   <footer style="padding:48px 0 72px;">
-    <div style="max-width:1120px; margin:0 auto; padding:0 32px; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; align-items:center; border-top:1px solid #141a20; padding-top:32px;">
-      <span style="font-size:13.5px; color:#6b7684;">Groundlens · Apache-2.0 · built by Javier Marín</span>
+    <div style="max-width:1120px; margin:0 auto; padding:0 32px; display:flex; flex-wrap:wrap; gap:24px; justify-content:space-between; align-items:flex-start; border-top:1px solid #141a20; padding-top:32px;">
+      <span style="font-size:13px; color:#6b7684; line-height:1.7; max-width:70ch;">© 2026 Groundlens. Copyright © Javier Marín ®. All rights reserved. For more information, including terms of use, privacy policy, and trademark usage, please see our <a href="https://github.com/groundlens-dev/groundlens" style="color:#9aa4b0;">github repository</a> for more details.</span>
       <div style="display:flex; gap:24px; font-size:13.5px;">
         <a href="https://docs.groundlens.dev" style="color:#9aa4b0;">Docs</a>
         <a href="https://github.com/groundlens-dev/groundlens" style="color:#9aa4b0;">GitHub</a>
