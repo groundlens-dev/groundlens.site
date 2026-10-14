@@ -19,16 +19,16 @@ const config = defineConfig({
 			themeColor: '#fc7604',
 			openGraph: {
 				home: {
-					title: 'groundlens',
-					description: 'Triage for LLM outputs in regulated industries. Geometric, deterministic, auditable. The cheap first stage that tells your expensive verifier what to look at.',
+					title: 'GroundLens',
+					description: 'Guardrails for LLM answers. GroundLens checks an LLM answer against its sources without a model, decides PASS, REVIEW or FAIL under your policy, and keeps a signed record.',
 				},
 				blog: {
 					title: 'Blog',
-					description: 'News and guides for groundlens.',
+					description: 'Research behind GroundLens: hallucination, grounding and verification of LLM answers.',
 				},
 				projects: {
 				    title: 'Projects',
-				    description: 'Open-source libraries for triaging LLM outputs and characterizing hallucinations geometrically.',
+				    description: 'GroundLens, guardrails for LLM answers, and the research it grew from.',
 				},
 			},
 		}),

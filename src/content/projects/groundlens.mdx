@@ -1,11 +1,11 @@
 ---
 title: "groundlens"
-description: "The deterministic first stage of grounding verification. It decides what your expensive check has to look at. Python library with CLI, provider connectors, and framework integrations."
-date: "2025-12-15"
+description: "Guardrails for LLM answers. Checks an LLM answer against its sources without a model, decides PASS, REVIEW or FAIL under your policy, and keeps a signed record."
+date: "2026-10-14"
 image: "../../assets/projects/groundlens-library.png"
 link: "https://github.com/groundlens-dev/groundlens"
 info:
-  - text: "Python 3.10-3.13"
+  - text: "Python 3.10+"
     icon: { type: "simple-icons", name: "python" }
   - text: "Apache 2.0"
     icon: { type: "lucide", name: "scale" }
@@ -14,33 +14,30 @@ info:
     link: "https://github.com/groundlens-dev/groundlens"
   - text: "Documentation"
     icon: { type: "lucide", name: "book-open" }
-    link: "https://docs.groundlens.dev"
+    link: "https://groundlens.readthedocs.io"
 ---
 
-*groundlens* is a Python library that triages LLM outputs by grounding signal: deterministic, sub-second, with no model in the scoring path. It is the first stage of a two-stage pipeline, and it escalates what geometry cannot settle.
+*GroundLens* checks an LLM answer against its sources without a model, decides PASS, REVIEW or FAIL under your policy, and keeps a signed record.
 
-Two methods, zero LLM dependencies:
-
-- **SGI** (Semantic Grounding Index) — measures whether a response engages its source material. For RAG systems with context.
-- **DGI** (Directional Grounding Index) — measures whether a response's displacement in embedding space aligns with grounded patterns. Context-free.
+- **Exact checks first.** Every figure must be in the passages or follow from figures that are; a real figure from another company, contract or year fails; the answer must give the kind and unit the question asked for.
+- **A policy you own** turns the evidence into a decision, with reasons.
+- **A signed, hash-chained record** of every decision, stored before the decision returns and verifiable offline.
+- **Your LLM judge, if you want one,** only sees the answers the exact checks could not reject.
 
 ```bash
 pip install groundlens
 ```
 
 ```python
-from groundlens import compute_sgi
+import groundlens as gl
 
-result = compute_sgi(
-    question="What is the capital of France?",
-    context="France is in Western Europe. Its capital is Paris.",
-    response="The capital of France is Paris.",
-)
-# result.flagged → False
+verifier = gl.Verifier(sink=gl.sinks.jsonl("records/"))
+record = verifier.check(answer="Revenue was €42.1 million.", passages=["Revenue reached €41.2 million."])
+print(record.decision)   # FAIL
 ```
 
-Reported skill, with controls. On confabulations that stay in register, every embedding-similarity method, this one included, declines toward chance: classic encoders reach 0.62 to 0.68, raw cosine 0.595. Under an authorship-matched control, decoders that appeared to score 0.93+ fall to 0.66 to 0.68. The high 0.6s is the ceiling of the class, not a groundlens shortfall. Domain calibration sharpens the easy end and leaves the blind spot intact (0.626 to 0.689). Use it to triage, then escalate what it cannot settle to an entailment check.
+Works with Langfuse, Grafana and any OpenTelemetry backend, and MCP clients. Rust engine, Python package, Apache-2.0.
 
 ---
 
-[GitHub repository](https://github.com/groundlens-dev/groundlens) · [Documentation](https://docs.groundlens.dev) · [PyPI](https://pypi.org/project/groundlens/)
+[Home](https://groundlens.dev) · [GitHub repository](https://github.com/groundlens-dev/groundlens) · [Documentation](https://groundlens.readthedocs.io) · [PyPI](https://pypi.org/project/groundlens/)

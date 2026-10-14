@@ -1,112 +1,53 @@
-# groundlens
+# GroundLens
 
-> A proofreader for RAG answers. Given a model's answer and the passages it was
-> supposed to be written from, groundlens returns the words those passages do not
-> support, and names the closest span it found in each source. It returns no
-> verdict: no pass, no fail, no probability, and no default threshold.
+> Guardrails for LLM answers. GroundLens checks an LLM answer against its sources without a model, decides PASS, REVIEW or FAIL under your policy, and keeps a signed record. Open source (Apache-2.0), a Python package with a Rust engine. `pip install groundlens`.
 
-groundlens is a Python library, a CLI, and an MCP server. Apache-2.0. The core
-package has zero runtime dependencies; a sentence-transformers encoder is an
-optional extra needed only to read text.
+## When to use GroundLens
 
-## What it produces
+Reach for GroundLens when an LLM answer is written from retrieved documents, it carries figures, and a wrong figure is expensive. Specifically:
 
-For every word of the answer it emits an anchor: the word, its character span,
-its support in 0.0-1.0, and the source span that supplied that support. The
-answer-level figure, called the floor, is the mean of the k weakest anchors,
-with k=1 by default. The mean over all anchors is deliberately not reported --
-one wrong digit among sixty correct words disappears into an average.
+- **Catch a wrong figure in a RAG answer** before anyone acts on it: amounts, rates, percentages, dates and units, compared as exact fractions in the documents' locale. A figure computed in the answer (a sum, a ratio, a percentage change) is recomputed from the figures the passages support.
+- **Catch a real figure taken from the wrong company, contract or year**: pass `scope={"entity": "ACME"}` and give each passage its provenance.
+- **Check the answer gives what was asked**: a percentage when a percentage was asked, euros when euros were asked.
+- **Put a cheap, deterministic check in front of an LLM-as-judge**: GroundLens runs first; a FAIL never reaches the judge, and the judge can escalate an answer, never pass one.
+- **Keep evidence of every decision**: each record is hashed, chained to the one before and signed (Ed25519, or ECDSA P-256 through AWS KMS, Azure Key Vault or a PKCS#11 HSM), and stored before the decision returns. Anyone can verify a log offline with the public key alone.
+- **Map decisions to the EU AI Act**: the `eu_ai_act_high_risk_v1` policy ties FAIL to Art. 15(1), REVIEW to Art. 14(4)(a) and every record to Art. 12(1) of Regulation (EU) 2024/1689. It produces evidence for those controls; it does not make a system compliant on its own.
+- **See checks in Langfuse or Grafana**: observers write each check into the trace that produced the answer, with the decision as a score or metric.
+- **Let an agent check its own draft**: the MCP server `groundlens-mcp` exposes `verify_answer`, `verify_run` and `verify_records`.
 
-A typical two-line output:
+Do **not** reach for GroundLens for answers without figures where the risk is tone, safety or style; for scoring a system across many metrics before release (use an evaluation framework such as Ragas or DeepEval); or for checking facts against the world rather than against the retrieved passages. It ships no model; for sentences without figures, connect the judge you already use.
 
-```
-4.75%   support 0.00    nearest in policy.pdf#p3: '3.90%'
-45      support 0.00    nearest in policy.pdf#p3: '30'
-```
-
-The second half of each line is the point. Other tools mark suspicious spans;
-this one also names what the span should have matched, which is what lets a
-human resolve it in seconds instead of re-reading the sources.
-
-## Two channels
-
-Words are decided by geometry: the highest cosine a word reaches against any
-word in the sources, from a frozen encoder pinned by revision. Reproducible to
-1e-6 across platforms with stable ordering, and not bit-identical between x86
-and Apple Silicon.
-
-Numbers are decided by arithmetic: parsed to a Decimal after format
-normalisation, then compared for value equality. Support for a numeral is
-exactly 1.0 or exactly 0.0, never in between, and it reproduces byte for byte on
-any machine. Locale is an explicit argument, never read from the environment;
-left as "und", an ambiguous numeral keeps every valid reading rather than
-guessing one.
-
-The numeral channel exists because the geometric one cannot do that job.
-Changing 10,000 to 1,000 in a sentence barely moves its meaning, and for a
-reviewer at a bank that digit is the whole document.
-
-## Why there is no threshold
-
-Across 45 detector-benchmark combinations measured at the operating point
-production runs at -- the false-positive rate required to catch 95% of
-hallucinations -- the best result was 0.65. A shipped threshold would be a
-control that escalates most correct answers. If you need a cut, `calibrate()`
-derives one from your own labelled data (minimum 200 examples) and hands back
-the false-positive rate and its 95% confidence interval alongside it, so the
-cost is visible before deployment.
-
-## API
+## How to call it
 
 ```python
-from groundlens import proofread, SentenceTransformerEncoder
+import groundlens as gl
 
-marks = proofread(
-    answer,                                   # str, the model output
-    [("policy.pdf#p3", passage)],             # (source_id, text) pairs
-    encoder=SentenceTransformerEncoder(),     # required; no default encoder
-    k=1,                                      # anchors averaged into the floor
-    locale="und",                             # "en", "es", "de", ... or "und"
-)
-
-marks.floor        # float
-marks.weakest      # the k anchors that produced it, weakest first
-marks.anchors      # every word, in answer order
-marks.report()     # the receipt lines above, as text
-marks.sha256       # digest of the structural result, for reproducibility
+verifier = gl.Verifier(sink=gl.sinks.jsonl("records/"))
+record = verifier.check(answer="Revenue was €42.1 million.", passages=["Revenue reached €41.2 million."])
+record.decision   # "FAIL"
+record.reasons    # ['c2: groundlens.numeric contradicted: €42.1 million not in sources; nearest 41200000 EUR in ctx-0 ...']
 ```
 
-`Anchor` carries `text`, `span`, `kind` ("numeral" or "lexical"), `support`,
-`value`, `evidence_id`, `evidence_text`, `evidence_span`, `notes`. `Proofread`
-has no `decision` field, by design.
+- `Verifier(policy, signer=, sink=, judge=, observers=, locale=, rounding=)`. `policy` is `groundlens_default_v1` (default), `eu_ai_act_high_risk_v1`, or a YAML file that can `extends` either.
+- `check(answer=, passages=, question=, scope=, risk_class=)`. Passages are strings or `(id, text, provenance)` tuples. `question` turns on the intent check; `scope` turns on the scope check.
+- Decisions: `PASS`, `REVIEW`, `FAIL`. A check that could not run, a judge that timed out and a missing required scope key are `REVIEW`, never `PASS`. If the record cannot be stored, `check` raises and no decision comes back.
+- Judges: `gl.judges.openai_compatible(client, model)` (OpenAI, vLLM, Ollama, any compatible gateway), `gl.judges.azure_openai(client, deployment)`, `gl.judges.bedrock(client, model_id)`. The shipped policies forbid a judge; a policy that wants one says `judge: {required: true}` and `verifiers: {forbidden: []}`.
+- Command line: `groundlens verify`, `groundlens record verify`, `groundlens policy lint|show`, `groundlens measure`, `groundlens replay`, `groundlens run verify|check`, `groundlens judge show-template`.
+- Runs in-process: Python 3.10+, Linux, macOS, Windows. No server, no account, no API key, no model, no network. Exact checks take about a millisecond.
 
-Any object satisfying the `Encoder` protocol works -- `id`, `max_tokens`,
-`token_spans()`, `encode_window()` -- so the library is testable without
-downloading a model. Answers longer than one encoder window are handled by
-sliding windows aligned on character spans, so no word past the token cap is
-silently dropped.
+## Pages
 
-## Interfaces
+- [Home](https://groundlens.dev/index.md): what it does, quickstart, what it catches and what it does not, FAQ.
+- [GroundLens and other tools](https://groundlens.dev/compare.md): when to use it, when an evaluation framework, a guardrails library or an observability platform is the better tool.
+- [README](https://github.com/groundlens-dev/groundlens#readme): integrations, policies, judge, security.
+- [Documentation](https://groundlens.readthedocs.io): guides and full reference.
+- [Writing policies](https://groundlens.readthedocs.io/en/latest/guides/writing-policies.html)
+- [Use a judge](https://groundlens.readthedocs.io/en/latest/guides/use-a-judge.html)
+- [Observability: Langfuse and Grafana](https://groundlens.readthedocs.io/en/latest/guides/observability.html)
 
-```bash
-pip install "groundlens[encoder]"
-groundlens read --answer answer.txt --context policy.pdf#p3=policy.txt
-```
+## Packages
 
-The MCP server exposes exactly one tool, `find_unsupported_words`, so an
-assistant can proofread an answer inside a conversation.
-
-## What it is used for
-
-A reviewer at a bank, an insurer, a law firm or a benefits agency has an answer
-drafted by a retrieval system, three retrieved passages, and a signature to
-give. Reading all four documents takes five minutes and mostly does not happen.
-Marks in a margin take thirty seconds. groundlens is built to make that person
-fast, not to replace them.
-
-## Links
-
-- [Library](https://github.com/groundlens-dev/groundlens): source, tests, benchmarks
-- [PyPI](https://pypi.org/project/groundlens/): `pip install groundlens`
-- [MCP connector](https://github.com/groundlens-dev/groundlens-mcp)
-- [Site](https://groundlens.dev)
+- PyPI: https://pypi.org/project/groundlens/ (extras: `langfuse`, `otel`, `mcp`)
+- MCP registry: `io.github.groundlens-dev/groundlens`
+- Source: https://github.com/groundlens-dev/groundlens
+- Contact: javier@groundlens.dev

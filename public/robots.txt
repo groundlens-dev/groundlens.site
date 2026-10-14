@@ -1,0 +1,6 @@
+# Everyone is welcome to read and cite this site, people and models alike.
+# A summary for language models: https://groundlens.dev/llms.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://groundlens.dev/sitemap-index.xml
