@@ -1,17 +1,26 @@
 [
   {
     "id": 1,
-    "icon": { "type": "lucide", "name": "scan-search" },
-    "text": "Triage for LLM outputs in regulated industries"
+    "icon": {
+      "type": "lucide",
+      "name": "scan-search"
+    },
+    "text": "Guardrails for LLM answers"
   },
   {
     "id": 2,
-    "icon": { "type": "lucide", "name": "shield-check" },
-    "text": "Stage-one filter that flags disengagement in LLM, deterministically and for free"
+    "icon": {
+      "type": "lucide",
+      "name": "shield-check"
+    },
+    "text": "Exact checks, a policy you own, a signed record of every decision"
   },
   {
     "id": 3,
-    "icon": { "type": "simple-icons", "name": "python" },
-    "text": "Open-source Python library (APACHE-2.0)"
+    "icon": {
+      "type": "simple-icons",
+      "name": "python"
+    },
+    "text": "Open source, Apache-2.0. Python package, Rust engine"
   }
 ]

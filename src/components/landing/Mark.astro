@@ -1,0 +1,11 @@
+---
+// The GroundLens mark: three bars narrowing to a point, drawn as SVG so it
+// stays sharp at any size and needs no 2,500-pixel PNG.
+const { class: className, title } = Astro.props;
+---
+<svg class={className} viewBox="0 0 64 64" role={title ? "img" : undefined} aria-hidden={title ? undefined : "true"} aria-label={title}>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#1a1e24" />
+  <rect x="14" y="17" width="36" height="7" fill="#e5574a" />
+  <rect x="19" y="29" width="26" height="7" fill="#2f6fbf" />
+  <rect x="24" y="41" width="16" height="7" fill="#2f6fbf" />
+</svg>

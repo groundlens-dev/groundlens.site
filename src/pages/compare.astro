@@ -1,0 +1,85 @@
+---
+// Same text as public/compare.md, the Markdown twin: change one, change the other.
+import Footer from "../components/landing/Footer.astro";
+import Head from "../components/landing/Head.astro";
+import Nav from "../components/landing/Nav.astro";
+
+const title = "GroundLens and other tools — when to use which";
+const description =
+	"When to use GroundLens, and when an evaluation framework, a guardrails library or an observability platform is the better tool. They work together.";
+const jsonLd = [
+	{
+		"@context": "https://schema.org",
+		"@type": "TechArticle",
+		headline: "GroundLens and other tools",
+		description,
+		url: "https://groundlens.dev/compare",
+		about: { "@type": "SoftwareApplication", name: "GroundLens", url: "https://groundlens.dev/" },
+	},
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <Head title={title} description={description} path="/compare" markdown="/compare.md" jsonLd={jsonLd} />
+</head>
+<body>
+  <Nav />
+  <main class="narrow prose" style="padding: 80px 0 96px">
+    <p class="kicker">Compare</p>
+    <h1 style="font-size: clamp(36px, 6vw, 56px); line-height: 1.05; letter-spacing: -0.04em; margin: 0 0 20px">GroundLens and other tools</h1>
+    <p class="sub">Most teams that ship LLM answers end up with three kinds of tool. They answer different questions, and GroundLens is only one of them.</p>
+
+    <div class="table-box">
+      <table>
+        <thead><tr><th>Question</th><th>Kind of tool</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td>How good is my system, on a test set, before release?</td><td>Evaluation framework</td><td>Ragas, DeepEval, promptfoo</td></tr>
+          <tr><td>What happened in production, and what did it cost?</td><td>Observability platform</td><td>Langfuse, Arize Phoenix, Grafana</td></tr>
+          <tr><td>May this answer be used, and can I prove why?</td><td>Runtime check with a record</td><td>GroundLens</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>When GroundLens is the right tool</h2>
+    <ul>
+      <li>The answers carry <b>figures</b> (amounts, rates, dates, units) taken from documents, and a wrong figure is expensive.</li>
+      <li>A real figure from <b>the wrong company, contract or year</b> is the error you fear most.</li>
+      <li>You need a <b>decision per answer</b> (PASS, REVIEW or FAIL), not a score you still have to interpret.</li>
+      <li>Someone else will <b>audit</b> the decisions: a risk team, a regulator, a customer. They need a signed record they can check without your software.</li>
+      <li>You already run an <b>LLM judge</b> and want fewer calls to it, and a trail that does not rest on its opinion.</li>
+    </ul>
+
+    <h2>When it is not</h2>
+    <ul>
+      <li>Answers without figures, where the risk is tone, safety or style: use a judge or a guardrails library with those validators.</li>
+      <li>Measuring a system before release across many metrics: use an evaluation framework. GroundLens's <code>measure</code> answers one question only, the share of wrong answers among those that passed.</li>
+      <li>Checking facts against the world rather than against the passages you retrieved: GroundLens never looks beyond the passages.</li>
+    </ul>
+
+    <h2>Side by side</h2>
+    <div class="table-box">
+      <table>
+        <thead><tr><th></th><th>Evaluation frameworks (Ragas, DeepEval)</th><th>Guardrails libraries (Guardrails AI, NeMo Guardrails)</th><th>GroundLens</th></tr></thead>
+        <tbody>
+          <tr><td>When it runs</td><td>Mostly offline, on a test set</td><td>At runtime</td><td>At runtime, and offline to replay</td></tr>
+          <tr><td>How grounding is judged</td><td>Mostly with an LLM as judge</td><td>Validators or rails; grounding checks mostly use a model</td><td>Exact checks on figures, scope and intent; a judge only if you add one</td></tr>
+          <tr><td>What it returns</td><td>Scores per metric</td><td>Pass, fix or block per validator or rail</td><td>PASS, REVIEW or FAIL under a versioned policy, with reasons</td></tr>
+          <tr><td>What it keeps</td><td>Results of the run</td><td>Logs, if you keep them</td><td>A signed, hash-chained record, stored before the decision returns</td></tr>
+          <tr><td>Same input, same result</td><td>Depends on the judge</td><td>Depends on the validator</td><td>Yes for the exact checks, on every OS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>This table describes typical use. Each of these projects moves fast; check their documentation for what they do today.</p>
+
+    <h2>Using them together</h2>
+    <ul>
+      <li><b>With your evaluation framework:</b> run GroundLens on the same test set, and its exact checks give a deterministic baseline next to the judged scores.</li>
+      <li><b>With Langfuse or Grafana:</b> GroundLens writes each check into the trace that produced the answer, so the decision sits next to the model call.</li>
+      <li><b>With your judge:</b> GroundLens runs first; a FAIL never reaches the judge, and the judge can escalate an answer, never pass one.</li>
+    </ul>
+    <p>Install: <code>pip install groundlens</code>. Source: <a href="https://github.com/groundlens-dev/groundlens">github.com/groundlens-dev/groundlens</a></p>
+  </main>
+  <Footer />
+</body>
+</html>
