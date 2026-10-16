@@ -144,8 +144,9 @@ passages=...)`.
 
 ### What does it cost?
 
-Nothing. Apache-2.0: engine, checks, policies, connectors, command line and
-MCP server.
+The software costs nothing. Apache-2.0: engine, checks, policies, connectors,
+command line and MCP server. Measuring it on your answers and running it in
+your cloud is a paid service: write to javier@groundlens.dev.
 
 ## Links
 

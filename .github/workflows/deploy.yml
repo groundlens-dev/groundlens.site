@@ -21,6 +21,8 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm build
+        env:
+          PUBLIC_WEB3FORMS_KEY: ${{ vars.WEB3FORMS_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
