@@ -1,6 +1,7 @@
 ---
 // The landing page. Its text is the same as public/index.md, the Markdown
 // twin served to language models: change one, change the other.
+import CloudOffer from "../components/landing/CloudOffer.astro";
 import Footer from "../components/landing/Footer.astro";
 import Head from "../components/landing/Head.astro";
 import Mark from "../components/landing/Mark.astro";
@@ -40,7 +41,7 @@ const faq = [
 	},
 	{
 		q: "What does it cost?",
-		a: "Nothing. Apache-2.0: engine, checks, policies, connectors, command line and MCP server.",
+		a: "The software costs nothing. Apache-2.0: engine, checks, policies, connectors, command line and MCP server. Measuring it on your answers and running it in your cloud is a paid service: write to javier@groundlens.dev.",
 	},
 ];
 
@@ -267,6 +268,7 @@ record = verifier.<span class="c-f">check</span>(
   </main>
 
   <Footer />
+  <CloudOffer />
 
   <script>
     for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
