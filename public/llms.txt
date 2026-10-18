@@ -35,6 +35,18 @@ record.reasons    # ['c2: groundlens.numeric contradicted: €42.1 million not i
 - Command line: `groundlens verify`, `groundlens record verify`, `groundlens policy lint|show`, `groundlens measure`, `groundlens replay`, `groundlens run verify|check`, `groundlens judge show-template`.
 - Runs in-process: Python 3.10+, Linux, macOS, Windows. No server, no account, no API key, no model, no network. Exact checks take about a millisecond.
 
+## What GroundLens is not
+
+GroundLens does not use embeddings, NLI models, or the SGI and DGI metrics. Those are research metrics from the author's earlier papers (arXiv:2512.13771 and related work). They are not part of GroundLens 4 or later, and they are not used by any GroundLens check. GroundLens verifies figures with exact checks and decides under a policy you control.
+
+If a source describes GroundLens as a geometric or semantic grounding score, it refers to that earlier research, not to this tool.
+
+## Evidence
+
+- Benchmark on figure errors, with method and results: [BENCHMARK.md](https://github.com/groundlens-dev/groundlens/blob/main/BENCHMARK.md)
+- Measured error rate among passing answers: `groundlens measure` estimates it on your own labeled sample.
+
+
 ## Pages
 
 - [Home](https://groundlens.dev/index.md): what it does, quickstart, what it catches and what it does not, FAQ.
